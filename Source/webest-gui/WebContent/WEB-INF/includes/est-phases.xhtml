@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:tr="http://myfaces.apache.org/trinidad"
+    xmlns:trh="http://myfaces.apache.org/trinidad/html">
+
+                        
+    <ui:composition>
+                        
+        <tr:table
+            value="#{estimateAction.currentEstimate.projectEnvironment.phases}" id="Phases" var="item">
+            <tr:column sortable="true" sortProperty="number">
+                <f:facet name="header">
+                    <tr:outputText value="Phase" />
+                </f:facet>
+                <tr:outputText value="#{item.number}" />
+            </tr:column>
+            <tr:column sortable="true" sortProperty="acronym">
+                <f:facet name="header">
+                    <tr:outputText value="Acronym" />
+                </f:facet>
+                <tr:inputText id="Acronym" readOnly="#{!authAction.estimateEditable}" value="#{item.acronym}" columns="10" />
+            </tr:column>
+            <tr:column sortable="true" sortProperty="name">
+                <f:facet name="header">
+                    <tr:outputText value="Name" />
+                </f:facet>
+                <tr:inputText id="Name" readOnly="#{!authAction.estimateEditable}" value="#{item.name}"  columns="10"/>
+            </tr:column>
+            <tr:column sortable="true" sortProperty="description">
+                <f:facet name="header">
+                    <tr:outputText value="Description" />
+                </f:facet>
+                <tr:inputText id="Description" readOnly="#{!authAction.estimateEditable}" value="#{item.description}" />
+            </tr:column>
+            <tr:column sortable="true" sortProperty="percentage">
+                <f:facet name="header">
+                    <tr:outputText value="%" />
+                </f:facet>
+                <tr:inputText id="Percentage" readOnly="#{!authAction.estimateEditable}" value="#{item.percentage}" columns="5"/>
+            </tr:column>
+        </tr:table>
+        
+    </ui:composition>
+    
+</html>

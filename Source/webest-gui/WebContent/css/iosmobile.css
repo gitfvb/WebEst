@@ -1,0 +1,10 @@
+/*--------------------------------------------*/
+/* GLOBAL CONFIG                              */
+/*--------------------------------------------*/
+
+
+.granularityblock input, .granularityblock img {
+	float:left;
+	display:block;
+}
+	

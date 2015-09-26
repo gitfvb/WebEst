@@ -1,0 +1,99 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Tables</title>
+  <link rel="stylesheet" type="text/css" href="../stylesheet.css">
+</head>
+<body onload="setTitle()">
+<script type="text/javascript">
+function setTitle(){
+  parent.document.title="ORGANIZATION";
+}
+</script>
+
+<h2
+  >
+  ORGANIZATION
+      (ORGANIZATION)
+  </h2>
+
+
+<table width="100%" border="1" cellpadding="3" cellspacing="0" >
+  <tr class="TableHeadingColor">
+    <th width="1%">No.</th>
+    <th width="14%">Logical Name</th>
+    <th width="14%">Physical Name</th>
+    <th width="10%">Type</th>
+    <th width="3%">Null</th>
+    <th width="3%">Default Value</th>
+    <th width="30%">Description</th>
+  </tr>
+    <tr>
+    <td align="right" nowrap>
+              <img src="../images/primarykey.gif">
+            1
+    </td>
+    <td><strong>ID</strong></td>
+    <td><strong><code>ID</code></strong></td>
+    <td><code>INTEGER(10)</code></td>
+    <td align="center">
+          N
+        </td>
+    <td>&nbsp;</td>
+    <td>
+              AUTO INCREMENT<br>
+            </td>
+  </tr>
+    <tr>
+    <td align="right" nowrap>
+            2
+    </td>
+    <td><strong>NAME</strong></td>
+    <td><strong><code>NAME</code></strong></td>
+    <td><code>VARCHAR(50)</code></td>
+    <td align="center">
+          N
+        </td>
+    <td>&nbsp;</td>
+    <td>
+                  &nbsp;
+        </td>
+  </tr>
+  </table>
+
+
+  <br>
+  <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr class="TableHeadingColor">
+      <td><strong>Indices</strong></td>
+    </tr>
+  </table>
+  
+          <h3>SQL110218162351951 (UNIQUE)</h3>
+    <dl>
+      <dt><strong>Columns:</strong></dt>
+      <dd>
+                  <code>NAME</code><br>
+              </dd>
+    </dl>
+    
+
+  <br>
+  <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr class="TableHeadingColor">
+      <td><strong>Referenced Tables</strong></td>
+    </tr>
+  </table>
+  <br>
+  <table border="1" cellpadding="3" cellspacing="0">
+    <tr><th>Table</th><th>Column</th></tr>
+                  <tr>
+          <td><code><a href="DIVISION.html">DIVISION.ORGANIZATION</a></code></td>
+          <td>
+            <code>ID</code><br>
+          </td>
+        </tr>
+            </table>
+
+</body>
+</html>

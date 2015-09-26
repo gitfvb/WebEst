@@ -1,0 +1,202 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Tables</title>
+  <link rel="stylesheet" type="text/css" href="../stylesheet.css">
+</head>
+<body onload="setTitle()">
+<script type="text/javascript">
+function setTitle(){
+  parent.document.title="USER";
+}
+</script>
+
+<h2
+  >
+  USER
+      (USER)
+  </h2>
+
+
+<table width="100%" border="1" cellpadding="3" cellspacing="0" >
+  <tr class="TableHeadingColor">
+    <th width="1%">No.</th>
+    <th width="14%">Logical Name</th>
+    <th width="14%">Physical Name</th>
+    <th width="10%">Type</th>
+    <th width="3%">Null</th>
+    <th width="3%">Default Value</th>
+    <th width="30%">Description</th>
+  </tr>
+    <tr>
+    <td align="right" nowrap>
+              <img src="../images/primarykey.gif">
+            1
+    </td>
+    <td><strong>ID</strong></td>
+    <td><strong><code>ID</code></strong></td>
+    <td><code>VARCHAR(50)</code></td>
+    <td align="center">
+          N
+        </td>
+    <td>&nbsp;</td>
+    <td>
+                  &nbsp;
+        </td>
+  </tr>
+    <tr>
+    <td align="right" nowrap>
+            2
+    </td>
+    <td><strong>FIRSTNAME</strong></td>
+    <td><strong><code>FIRSTNAME</code></strong></td>
+    <td><code>VARCHAR(50)</code></td>
+    <td align="center">
+          N
+        </td>
+    <td>&nbsp;</td>
+    <td>
+                  &nbsp;
+        </td>
+  </tr>
+    <tr>
+    <td align="right" nowrap>
+            3
+    </td>
+    <td><strong>LASTNAME</strong></td>
+    <td><strong><code>LASTNAME</code></strong></td>
+    <td><code>VARCHAR(50)</code></td>
+    <td align="center">
+          N
+        </td>
+    <td>&nbsp;</td>
+    <td>
+                  &nbsp;
+        </td>
+  </tr>
+    <tr>
+    <td align="right" nowrap>
+            4
+    </td>
+    <td><strong>PASSWORD</strong></td>
+    <td><strong><code>PASSWORD</code></strong></td>
+    <td><code>VARCHAR(32)</code></td>
+    <td align="center">
+          N
+        </td>
+    <td>&nbsp;</td>
+    <td>
+                  &nbsp;
+        </td>
+  </tr>
+    <tr>
+    <td align="right" nowrap>
+            5
+    </td>
+    <td><strong>ROLE</strong></td>
+    <td><strong><code>ROLE</code></strong></td>
+    <td><code>VARCHAR(20)</code></td>
+    <td align="center">
+          Y
+        </td>
+    <td>&nbsp;</td>
+    <td>
+         MD5 Hex String
+        </td>
+  </tr>
+    <tr>
+    <td align="right" nowrap>
+            6
+    </td>
+    <td><strong>DIVISION</strong></td>
+    <td><strong><code>DIVISION</code></strong></td>
+    <td><code>INTEGER(10)</code></td>
+    <td align="center">
+          Y
+        </td>
+    <td>&nbsp;</td>
+    <td>
+                  &nbsp;
+        </td>
+  </tr>
+  </table>
+
+  <br>
+  <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr class="TableHeadingColor">
+      <td><strong>Foreign Keys</strong></td>
+    </tr>
+  </table>
+          <h3>FK_USER_ROLE</h3>
+    <table border="1" cellpadding="3" cellspacing="0">
+      <tr><th>Column</th><th>Referenced Column</th></tr>
+            <tr>
+        <td><code>ROLE</code></td>
+        <td><code><a href="ROLE.html">ROLE.ID</a></code></td>
+      </tr>
+          </table>
+          <hr>
+        <h3>FK_USER_DIV</h3>
+    <table border="1" cellpadding="3" cellspacing="0">
+      <tr><th>Column</th><th>Referenced Column</th></tr>
+            <tr>
+        <td><code>DIVISION</code></td>
+        <td><code><a href="DIVISION.html">DIVISION.ID</a></code></td>
+      </tr>
+          </table>
+  
+  <br>
+  <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr class="TableHeadingColor">
+      <td><strong>Indices</strong></td>
+    </tr>
+  </table>
+  
+          <h3>SQL110218162356781 (INDEX)</h3>
+    <dl>
+      <dt><strong>Columns:</strong></dt>
+      <dd>
+                  <code>ROLE</code><br>
+              </dd>
+    </dl>
+          <hr>
+        <h3>SQL110218162356782 (INDEX)</h3>
+    <dl>
+      <dt><strong>Columns:</strong></dt>
+      <dd>
+                  <code>DIVISION</code><br>
+              </dd>
+    </dl>
+    
+
+  <br>
+  <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr class="TableHeadingColor">
+      <td><strong>Referenced Tables</strong></td>
+    </tr>
+  </table>
+  <br>
+  <table border="1" cellpadding="3" cellspacing="0">
+    <tr><th>Table</th><th>Column</th></tr>
+                  <tr>
+          <td><code><a href="ESTIMATE.html">ESTIMATE.ESTIMATOR</a></code></td>
+          <td>
+            <code>ID</code><br>
+          </td>
+        </tr>
+                        <tr>
+          <td><code><a href="ESTIMATE.html">ESTIMATE.LASTEDITOR</a></code></td>
+          <td>
+            <code>ID</code><br>
+          </td>
+        </tr>
+                        <tr>
+          <td><code><a href="SOLUTION.html">SOLUTION.LASTEDITOR</a></code></td>
+          <td>
+            <code>ID</code><br>
+          </td>
+        </tr>
+            </table>
+
+</body>
+</html>

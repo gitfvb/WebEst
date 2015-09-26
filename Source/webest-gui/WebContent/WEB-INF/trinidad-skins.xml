@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+            <skins xmlns="http://myfaces.apache.org/trinidad/skin">
+                <skin>
+                    <id>
+                        webest.desktop
+                    </id>
+                    <family>
+                        webest
+                    </family>
+                    <render-kit-id>
+                        org.apache.myfaces.trinidad.desktop
+                    </render-kit-id>
+                    <style-sheet-name>
+                        css/casablancaSkin.css
+                    </style-sheet-name>
+                </skin>
+            </skins>
+

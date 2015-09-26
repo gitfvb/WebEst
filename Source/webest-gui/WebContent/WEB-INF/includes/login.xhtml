@@ -1,0 +1,54 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.w3.org/1999/xhtml http://www.w3.org/2002/08/xhtml/xhtml1-transitional.xsd">
+
+    <html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:tr="http://myfaces.apache.org/trinidad"
+        xmlns:trh="http://myfaces.apache.org/trinidad/html">
+
+    <ui:insert name="htmlHead">
+        <title>IBM - WebEstimation - Login</title>
+        <link rel="stylesheet" type="text/css" href="css/template.css" />
+        <ui:include src="/WEB-INF/includes/ios-settings.xhtml" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </ui:insert>
+
+    <ui:insert name="body">
+        <div id="loginwrapper">
+            <div id="logincontainer">
+                
+                <div id="loginwebestimation">
+                    <tr:outputText value="WebEstimation" id="loginwebestimation"/>
+                </div>
+                
+                <tr:outputText value="Please enter user name and password to login:" id="loginpleaseenter" />    
+                    
+                <form method="post" name="loginForm" action="j_security_check" id="loginform">            
+                    <tr:panelFormLayout>
+                        <tr:panelLabelAndMessage label="User Name ">
+                            <input type="text" name="j_username" />
+                        </tr:panelLabelAndMessage>
+                        <tr:panelLabelAndMessage label="Password ">
+                            <input type="password" name="j_password" />
+                        </tr:panelLabelAndMessage>
+                        <input type="submit" name="login" value="Login" />
+                    </tr:panelFormLayout>
+                    <h:panelGrid styleClass="error" rendered="#{param['error']!=null}">
+                        <tr:outputText value="Login failed. Invalid user name or password."/>
+                    </h:panelGrid>
+                </form>
+                <script type="text/javascript" language="javscript">
+                    document.loginForm.j_username.focus();
+                </script>
+            </div>
+        </div>
+    </ui:insert>
+
+    </html>
+</f:view>

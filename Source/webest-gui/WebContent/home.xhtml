@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:tr="http://myfaces.apache.org/trinidad"
+    xmlns:trh="http://myfaces.apache.org/trinidad/html">
+
+
+<f:view>
+    <ui:composition template="/WEB-INF/templates/template.xhtml">
+        <ui:define name="main">
+            <div id="mainview"><tr:panelBox
+                text="Welcome to IBM WebEstimation" styleClass="hundredPercent">
+                <tr:form>
+                    <h:panelGrid columns="2" styleClass="homescreen"
+                        rowClasses="vtop">
+                        <tr:panelBox styleClass="homebox"
+                            text="My recently modified estimates"
+                            rendered="#{authAction.estimateEditable}">
+                            <table border="0">
+                                <ui:repeat var="item"
+                                    value="#{homeAction.recentUserEstimates}">
+                                    <tr>
+                                        <td><h:commandLink
+                                            actionListener="#{homeAction.homeLinkClicked}"
+                                            action="#{estimateAction.gotoSelectedNode}"
+                                            value="#{item.name}">
+                                            <f:param name="node" id="node" value="#{item}" />
+                                        </h:commandLink></td>
+                                        <td class="space"><h:outputText
+                                            value="#{item.modifyDate}" /></td>
+                                    </tr>
+                                </ui:repeat>
+                            </table>
+                        </tr:panelBox>
+                        <tr:panelBox styleClass="homebox"
+                            text="My recently modified solutions"
+                            rendered="#{authAction.estimateEditable}">
+                            <table border="0">
+                                <ui:repeat var="item"
+                                    value="#{homeAction.recentUserSolutions}">
+                                    <tr>
+                                        <td><h:commandLink
+                                            actionListener="#{homeAction.homeLinkClicked}"
+                                            action="#{estimateAction.gotoSelectedNode}"
+                                            value="#{item.name}">
+                                            <f:param name="node" id="node" value="#{item}" />
+                                        </h:commandLink></td>
+                                        <td class="space"><h:outputText
+                                            value="#{item.modifyDate}" /></td>
+                                    </tr>
+                                </ui:repeat>
+                            </table>
+                        </tr:panelBox>
+                        <tr:panelBox styleClass="homebox"
+                            text="Recently modified estimates of my division">
+                            <table border="0">
+                                <ui:repeat var="item"
+                                    value="#{homeAction.recentDivisionEstimates}">
+                                    <tr>
+                                        <td><h:commandLink
+                                            actionListener="#{homeAction.homeLinkClicked}"
+                                            action="#{estimateAction.gotoSelectedNode}"
+                                            value="#{item.name}">
+                                            <f:param name="node" id="node" value="#{item}" />
+                                        </h:commandLink></td>
+                                        <td class="space"><h:outputText
+                                            value="#{item.modifyDate}" /></td>
+                                        <td class="space"><h:outputText
+                                            value="by #{item.lastEditor.lastName}, #{item.lastEditor.firstName}" /></td>
+                                    </tr>
+                                </ui:repeat>
+                            </table>
+                        </tr:panelBox>
+                        <tr:panelBox styleClass="homebox"
+                            text="Recently modified solutions of my division">
+                            <table border="0">
+                                <ui:repeat var="item"
+                                    value="#{homeAction.recentDivisionSolutions}">
+                                    <tr>
+                                        <td><h:commandLink
+                                            actionListener="#{homeAction.homeLinkClicked}"
+                                            action="#{estimateAction.gotoSelectedNode}"
+                                            value="#{item.name}">
+                                            <f:param name="node" id="node" value="#{item}" />
+                                        </h:commandLink></td>
+                                        <td class="space"><h:outputText
+                                            value="#{item.modifyDate}" /></td>
+                                        <td class="space"><h:outputText
+                                            value="by #{item.lastEditor.lastName}, #{item.lastEditor.firstName}" /></td>
+                                    </tr>
+                                </ui:repeat>
+                            </table>
+                        </tr:panelBox>
+                    </h:panelGrid>
+                </tr:form>
+            </tr:panelBox></div>
+        </ui:define>
+
+
+    </ui:composition>
+</f:view>
+</html>

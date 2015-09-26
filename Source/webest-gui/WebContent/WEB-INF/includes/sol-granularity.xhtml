@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:tr="http://myfaces.apache.org/trinidad"
+    xmlns:trh="http://myfaces.apache.org/trinidad/html">
+
+
+<ui:composition>
+    <h:panelGrid columns="2">
+        <tr:panelLabelAndMessage label="Granularity">
+            <tr:selectOneChoice label="Granularity" readOnly="#{!authAction.estimateEditable}" partialTriggers="takeSuggested" simple="true"
+                required="true"
+                id="Granularity"
+                requiredMessageDetail="Please select a granularity."
+                value="#{solutionAction.currentSolution.granularity}">
+                <f:selectItems value="#{granularityAction.granularityLevelsMap}" />
+            </tr:selectOneChoice>
+        </tr:panelLabelAndMessage>
+        <tr:commandButton rendered="#{authAction.estimateEditable}" id="takeSuggested"
+            action="#{granularityAction.takeSuggestedGranularity}"
+            text="Take Suggested Granularity" partialSubmit="true"
+             />
+    </h:panelGrid>
+
+    <h:panelGrid rendered="#{authAction.estimateEditable}" class="smalltext"> To select, please click on the
+    appropriate text.<br /> 
+    You have to select one text in each row.</h:panelGrid>
+
+    <table class="granularityblock af_table_content" width="100%"
+        style="margin-top: 20px;">
+        <tr>
+            <ui:repeat varStatus="status" var="level"
+                value="#{granularityAction.granularityLevels}">
+                <th
+                    class="af_column_header-text#{status.first ? '' : ' OraTableBorder0001'}">
+                <tr:outputText value="#{level.name}" /></th>
+            </ui:repeat>
+        </tr>
+        <ui:repeat var="item"
+            value="#{granularityAction.granularityQuestions}">
+
+            <tr>
+                <ui:repeat var="level"
+                    value="#{granularityAction.granularityLevels}">
+                    <td class="af_column_cell-text OraTableBorder1111#{item[level].selected ? ' granQuestSel'  : ''}">
+                    <tr:selectBooleanRadio
+                        onclick="changeGranularityQuestionField(this)"
+                        readOnly="#{!authAction.estimateEditable}"
+                        group="#{item[level].object.factorName}"
+                        value="#{item[level].selected}"
+                        text="#{item[level].object.question}" /></td>
+                </ui:repeat>
+            </tr>
+        </ui:repeat>
+    </table>
+    
+</ui:composition>
+</html>

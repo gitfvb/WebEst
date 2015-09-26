@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:tr="http://myfaces.apache.org/trinidad"
+    xmlns:trh="http://myfaces.apache.org/trinidad/html">
+
+
+<ui:composition>
+    <tr:panelCaptionGroup captionText="Operational Runtime Environment">
+        <tr:panelFormLayout>
+            <tr:panelLabelAndMessage label="Days per week">
+                <tr:inputText simple="true"
+                     id="DaysPerWeek"
+                    readOnly="#{!authAction.estimateEditable}"
+                    value="#{estimateAction.currentEstimate.projectEnvironment.daysPerWeek}">
+                </tr:inputText>
+            </tr:panelLabelAndMessage>
+            <tr:panelLabelAndMessage label="Hours per day">
+                <tr:inputText simple="true"
+                 id="HoursPerDay"
+                    readOnly="#{!authAction.estimateEditable}"
+                    value="#{estimateAction.currentEstimate.projectEnvironment.hoursPerDay}">
+                </tr:inputText>
+            </tr:panelLabelAndMessage>
+        </tr:panelFormLayout>
+    </tr:panelCaptionGroup>
+
+<br/>
+    <tr:panelCaptionGroup captionText="Defect Categories">
+
+        <tr:table id="DefectCategories"
+            value="#{estimateAction.currentEstimate.projectEnvironment.defectCategories}"
+            var="item">
+
+            <tr:column>
+                <f:facet name="header">
+                    <tr:outputText value="Include" />
+                </f:facet>
+                <tr:selectBooleanCheckbox value="#{item.included}"
+                    readOnly="#{!authAction.estimateEditable}" />
+            </tr:column>
+
+            <tr:column>
+                <f:facet name="header">
+                    <tr:outputText value="Name" />
+                </f:facet>
+                <tr:inputText id="Name" value="#{item.name}"
+                    readOnly="#{!authAction.estimateEditable}" columns="15" />
+            </tr:column>
+
+            <tr:column>
+                <f:facet name="header">
+                    <tr:outputText value="% of Total" />
+                </f:facet>
+                <tr:inputNumberSpinbox id="Percentage" value="#{item.percentage}"
+                    readOnly="#{!authAction.estimateEditable}" />
+            </tr:column>
+
+            <tr:column>
+                <tr:commandButton rendered="#{authAction.estimateEditable}"
+                    text="Delete"
+                    actionListener="#{estimateAction.deleteDefectCategory}">
+                    <f:param name="defectCategory" value="#{item}" id="defectCategory" />
+                </tr:commandButton>
+            </tr:column>
+
+            <f:facet name="footer">
+                <tr:commandButton rendered="#{authAction.estimateEditable}"
+                    text="Add Row"
+                    actionListener="#{estimateAction.addRowDefectCategories}" />
+            </f:facet>
+
+        </tr:table>
+
+    </tr:panelCaptionGroup>
+</ui:composition>
+</html>

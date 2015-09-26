@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:tr="http://myfaces.apache.org/trinidad"
+    xmlns:trh="http://myfaces.apache.org/trinidad/html">
+
+                        
+<ui:composition>                
+    <tr:table id="Milestones"
+              var="item"
+              value="#{estimateAction.currentEstimate.projectEnvironment.milestones}" >
+
+        <tr:column>
+            <f:facet name="header">
+                <tr:outputText value="Included" />
+            </f:facet>
+            <tr:selectBooleanCheckbox value="#{item.included}" readOnly="#{!authAction.estimateEditable}"/>
+        </tr:column>
+        
+        <tr:column sortable="true" sortProperty="milestoneId">
+            <f:facet name="header">
+                <tr:outputText value="ID" />
+            </f:facet>
+            <tr:inputNumberSpinbox id="ID" value="#{item.milestoneId}" readOnly="#{!authAction.estimateEditable}" columns="3"/>
+        </tr:column>
+        
+        <tr:column>
+            <f:facet name="header">
+                <tr:outputText value="Acronym" />
+            </f:facet>
+            <tr:inputText id="Acronym" value="#{item.acronym}"  readOnly="#{!authAction.estimateEditable}" columns="10"/>
+        </tr:column>
+        
+        <tr:column sortable="true" sortProperty="name">
+            <f:facet name="header">
+                <tr:outputText value="Name" />
+            </f:facet>
+            <tr:inputText id="Name" value="#{item.name}"  readOnly="#{!authAction.estimateEditable}" columns="15"/>
+        </tr:column>
+        
+        <tr:column sortable="true" sortProperty="percentage">
+            <f:facet name="header">
+                <tr:outputText value="%" />
+            </f:facet>
+            <tr:inputNumberSpinbox id="Percentage" value="#{item.percentage}" readOnly="#{!authAction.estimateEditable}" columns="3"/>
+        </tr:column>
+         
+        <tr:column>
+            <f:facet name="header">
+                <tr:outputText value="of Phase" />
+            </f:facet>
+            <tr:selectOneChoice id="Phase" simple="true" readOnly="#{!authAction.estimateEditable}"
+                                value="#{item.phase}"
+                                requiredMessageDetail="Please select a phase."
+                                required="true">
+                <f:selectItems value="#{projectDescriptionAction.phases}" />
+            </tr:selectOneChoice>
+        </tr:column>
+         
+        <tr:column>
+            <f:facet name="header">
+                <tr:outputText value="Description" />
+            </f:facet>
+            <tr:inputText value="#{item.description}"
+                readOnly="#{!authAction.estimateEditable}"
+                columns="20"
+                rows="2"/>            
+        </tr:column>
+        
+        <tr:column rendered="#{authAction.estimateEditable}">
+            <tr:commandButton text="Delete" actionListener="#{estimateAction.deleteMilestone}">
+                <f:param name="milestone" value="#{item}" id="milestone"/>
+            </tr:commandButton>
+        </tr:column>
+        
+        <f:facet name="footer">
+            <tr:commandButton text="Add Row" actionListener="#{estimateAction.addRowMilestones}" rendered="#{authAction.estimateEditable}"/>
+        </f:facet>
+            
+    </tr:table>
+        
+</ui:composition>
+</html>

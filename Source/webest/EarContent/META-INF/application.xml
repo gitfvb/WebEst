@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:application="http://java.sun.com/xml/ns/javaee/application_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd" id="Application_ID" version="5">
+  <display-name>WebEst</display-name>
+  <module>
+    <connector>derby-client-xa-1.5.rar</connector>
+  </module>
+  <module>
+    <connector>derby-client-local-1.5.rar</connector>
+  </module>
+  <module>
+    <web>
+      <web-uri>webest-gui.war</web-uri>
+      <context-root>webest</context-root>
+    </web>
+  </module>
+  <module>
+    <ejb>webest-persistence-service.jar</ejb>
+  </module>
+  <module>
+    <ejb>webest-processing.jar</ejb>
+  </module>
+  <module>
+    <ejb>webest-webservice.jar</ejb>
+  </module>
+</application>

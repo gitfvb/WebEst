@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:tr="http://myfaces.apache.org/trinidad"
+    xmlns:trh="http://myfaces.apache.org/trinidad/html">
+
+                        
+    <ui:composition>                
+        
+        <tr:panelLabelAndMessage label="Average PP of selected Projects">
+            <tr:outputText partialTriggers="piHistoryTreeTable" value="#{piHistoryAction.avgPp}"/>
+        </tr:panelLabelAndMessage>
+                
+        <tr:spacer height="10"/>
+                    
+        <tr:treeTable value="#{projectDescriptionAction.piHistoryTree}"
+                      var="node"
+                      simple="true"
+                      rowSelection="multiple"
+                      rootNodeRendered="false"
+                      emptyText="No data available."
+                      selectionListener="#{piHistoryAction.calcAvgPp}"
+                      id="piHistoryTreeTable"
+                      autoSubmit="true">
+        
+            <f:facet name="nodeStamp">
+                <tr:column>
+                    <f:facet name="header">
+                        <tr:outputText value="category" />
+                    </f:facet>
+                    <tr:outputText value="#{node.object.name}"
+                        rendered="#{node.object != null}"/>
+                </tr:column>
+            </f:facet>
+            
+            <tr:column>
+                <f:facet name="header">
+                    <tr:outputText value="PI" />
+                </f:facet>
+                <tr:outputText value="#{node.object.pi}"
+                    rendered="#{node.object.class.simpleName eq 'PiHistoryEntry'}"/>
+            </tr:column>
+            
+            <tr:column>
+                <f:facet name="header">
+                    <tr:outputText value="PP" />
+                </f:facet>
+                <tr:outputText value="#{node.pp}" />
+            </tr:column>
+            
+            <tr:column>
+                <f:facet name="header">
+                    <tr:outputText value="Effort" />
+                </f:facet>
+                <tr:outputText value="#{node.effort}" />
+            </tr:column>
+                    
+        </tr:treeTable>
+        
+        <small>
+            <tr:outputFormatted value="Click on the project in the list above to select/unselect projects to be included for average PP Calculation." />
+        </small>
+        
+                    
+    </ui:composition>
+</html>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?><definitions name="WebEstWebService" targetNamespace="http://webservice.webest.ibm.com/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://webservice.webest.ibm.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="http://webservice.webest.ibm.com/" schemaLocation="http://localhost:8080/WebEstWebService/EstimationService?xsd=WebEstWebService_schema1.xsd"/>
+    </xsd:schema>
+  </types>
+  <message name="generateReport">
+    <part element="tns:generateReport" name="parameters">
+    </part>
+  </message>
+  <message name="generateReportResponse">
+    <part element="tns:generateReportResponse" name="parameters">
+    </part>
+  </message>
+  <message name="EntityNotFoundException">
+    <part element="tns:EntityNotFoundException" name="fault">
+    </part>
+  </message>
+  <message name="getAllEstimatesResponse">
+    <part element="tns:getAllEstimatesResponse" name="parameters">
+    </part>
+  </message>
+  <message name="getAllEstimates">
+    <part element="tns:getAllEstimates" name="parameters">
+    </part>
+  </message>
+  <message name="EstimationServiceException">
+    <part element="tns:EstimationServiceException" name="fault">
+    </part>
+  </message>
+  <portType name="EstimationService">
+    <operation name="getAllEstimates">
+      <input message="tns:getAllEstimates">
+    </input>
+      <output message="tns:getAllEstimatesResponse">
+    </output>
+      <fault message="tns:EstimationServiceException" name="EstimationServiceException">
+    </fault>
+    </operation>
+    <operation name="generateReport">
+      <input message="tns:generateReport">
+    </input>
+      <output message="tns:generateReportResponse">
+    </output>
+      <fault message="tns:EstimationServiceException" name="EstimationServiceException">
+    </fault>
+      <fault message="tns:EntityNotFoundException" name="EntityNotFoundException">
+    </fault>
+    </operation>
+  </portType>
+  <binding name="EstimationServicePortBinding" type="tns:EstimationService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="getAllEstimates">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="EstimationServiceException">
+        <soap:fault name="EstimationServiceException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="generateReport">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="EstimationServiceException">
+        <soap:fault name="EstimationServiceException" use="literal"/>
+      </fault>
+      <fault name="EntityNotFoundException">
+        <soap:fault name="EntityNotFoundException" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <service name="WebEstWebService">
+    <port binding="tns:EstimationServicePortBinding" name="EstimationServicePort">
+      <soap:address location="http://localhost:8080/WebEstWebService/EstimationService"/>
+    </port>
+  </service>
+</definitions>

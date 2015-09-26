@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:tr="http://myfaces.apache.org/trinidad"
+    xmlns:trh="http://myfaces.apache.org/trinidad/html">
+
+
+<f:view>
+    <ui:composition template="/WEB-INF/templates/template.xhtml">
+        <ui:define name="main">
+            <tr:form>
+            <div id="mainview">
+                <tr:panelBox text="Report: #{reportAction.currentReport.name}" styleClass="hundredPercent">
+                <tr:commandButton text="Back" action="goToSolution" />
+                <div id="reportcontent">    
+                    <tr:panelAccordion discloseMany="true" discloseNone="true" styleClass="hundredPercent">
+                        <tr:showDetailItem text="Overview" disclosed="true">
+                            <ui:include src="/WEB-INF/includes/rep-overview.xhtml" />
+                        </tr:showDetailItem>
+                        <tr:showDetailItem text="Defect Categories">
+                            <ui:include src="/WEB-INF/includes/rep-defcat.xhtml" />
+                        </tr:showDetailItem>
+                        <tr:showDetailItem text="Staffing Curve">
+                            <ui:include src="/WEB-INF/includes/rep-pnrCurve.xhtml" />
+                        </tr:showDetailItem>
+                        <tr:showDetailItem text="Phases">
+                            <ui:include src="/WEB-INF/includes/rep-phases.xhtml" />
+                        </tr:showDetailItem>
+                        <tr:showDetailItem text="Milestone Plan">
+                            <ui:include src="/WEB-INF/includes/rep-msplan.xhtml" />
+                        </tr:showDetailItem>
+                    </tr:panelAccordion>
+                    </div>
+                </tr:panelBox>
+                </div>
+            </tr:form>
+        </ui:define>
+    </ui:composition>
+</f:view>
+</html>

@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?><xs:schema targetNamespace="http://webservice.webest.ibm.com/" version="1.0" xmlns:tns="http://webservice.webest.ibm.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="EntityNotFoundException" type="tns:EntityNotFoundException"/>
+
+  <xs:element name="EstimationServiceException" type="tns:EstimationServiceException"/>
+
+  <xs:element name="generateReport" type="tns:generateReport"/>
+
+  <xs:element name="generateReportResponse" type="tns:generateReportResponse"/>
+
+  <xs:element name="getAllEstimates" type="tns:getAllEstimates"/>
+
+  <xs:element name="getAllEstimatesResponse" type="tns:getAllEstimatesResponse"/>
+
+  <xs:complexType name="getAllEstimates"/>
+
+  <xs:complexType name="getAllEstimatesResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:estimate"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="estimate">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="comment" type="xs:string"/>
+      <xs:element minOccurs="0" name="creationDate" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="division" type="tns:division"/>
+      <xs:element minOccurs="0" name="estimator" type="tns:user"/>
+      <xs:element name="id" type="xs:int"/>
+      <xs:element minOccurs="0" name="lastEditor" type="tns:user"/>
+      <xs:element minOccurs="0" name="modifyDate" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element minOccurs="0" name="projectEnvironment" type="tns:projectEnvironment"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="solutions" nillable="true" type="tns:solution"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="division">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element minOccurs="0" name="organization" type="tns:organization"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="organization">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="user">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="division" type="tns:division"/>
+      <xs:element minOccurs="0" name="firstName" type="xs:string"/>
+      <xs:element minOccurs="0" name="lastName" type="xs:string"/>
+      <xs:element minOccurs="0" name="role" type="tns:role"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="role">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="projectEnvironment">
+    <xs:complexContent>
+      <xs:extension base="tns:templateValues">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="applicationType" type="tns:applicationType"/>
+          <xs:element minOccurs="0" name="country" type="tns:country"/>
+          <xs:element minOccurs="0" name="effortUnit" type="tns:effortUnit"/>
+          <xs:element minOccurs="0" name="industrySector" type="tns:industrySector"/>
+          <xs:element minOccurs="0" name="monetaryUnit" type="tns:monetaryUnit"/>
+          <xs:element minOccurs="0" name="mttdTimeUnit" type="tns:mttdTimeUnit"/>
+          <xs:element minOccurs="0" name="projectDescription" type="xs:string"/>
+          <xs:element minOccurs="0" name="projectName" type="xs:string"/>
+          <xs:element minOccurs="0" name="template" type="tns:template"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType abstract="true" name="templateValues">
+    <xs:sequence>
+      <xs:element name="daysPerWeek" type="xs:byte"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="defectCategories" nillable="true" type="tns:defectCategory"/>
+      <xs:element name="hoursPerDay" type="xs:byte"/>
+      <xs:element name="id" type="xs:int"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="milestones" nillable="true" type="tns:milestone"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="phases" nillable="true" type="tns:phase"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="applicationType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="group" type="tns:applicationTypeGroup"/>
+      <xs:element name="id" type="xs:int"/>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="applicationTypeGroup">
+    <xs:sequence>
+      <xs:element name="id" type="xs:int"/>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="country">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="code" type="xs:string"/>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="effortUnit">
+    <xs:complexContent>
+      <xs:extension base="tns:measuringUnit">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType abstract="true" name="measuringUnit">
+    <xs:sequence>
+      <xs:element name="factor" type="xs:double"/>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element name="reference" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="industrySector">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="group" type="tns:industrySectorGroup"/>
+      <xs:element name="id" type="xs:int"/>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="industrySectorGroup">
+    <xs:sequence>
+      <xs:element name="id" type="xs:int"/>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="monetaryUnit">
+    <xs:complexContent>
+      <xs:extension base="tns:measuringUnit">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="mttdTimeUnit">
+    <xs:complexContent>
+      <xs:extension base="tns:measuringUnit">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="template">
+    <xs:complexContent>
+      <xs:extension base="tns:templateValues">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="description" type="xs:string"/>
+          <xs:element minOccurs="0" name="name" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="defectCategory">
+    <xs:sequence>
+      <xs:element name="id" type="xs:int"/>
+      <xs:element name="included" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element minOccurs="0" name="percentage" type="xs:byte"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="milestone">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="acronym" type="xs:string"/>
+      <xs:element minOccurs="0" name="description" type="xs:string"/>
+      <xs:element name="id" type="xs:int"/>
+      <xs:element name="included" type="xs:boolean"/>
+      <xs:element name="milestoneId" type="xs:byte"/>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element name="percentage" type="xs:byte"/>
+      <xs:element minOccurs="0" name="phase" type="tns:phase"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="phase">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="acronym" type="xs:string"/>
+      <xs:element minOccurs="0" name="description" type="xs:string"/>
+      <xs:element name="id" type="xs:int"/>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element name="number" type="xs:byte"/>
+      <xs:element minOccurs="0" name="percentage" type="xs:byte"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="solution">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="comment" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="constraints" nillable="true" type="tns:constraint"/>
+      <xs:element minOccurs="0" name="creationDate" type="xs:dateTime"/>
+      <xs:element name="gearingFactor" type="xs:int"/>
+      <xs:element minOccurs="0" name="granularity" type="tns:granularityLevel"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="granularityQuestions" nillable="true" type="tns:granularityQuestion"/>
+      <xs:element name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="lastEditor" type="tns:user"/>
+      <xs:element minOccurs="0" name="modifyDate" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element minOccurs="0" name="pi" type="xs:int"/>
+      <xs:element minOccurs="0" name="pp" type="xs:int"/>
+      <xs:element minOccurs="0" name="projectStartDate" type="xs:dateTime"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="solutionStaffingShapes" nillable="true" type="tns:solutionStaffingShape"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="useCasePacks" nillable="true" type="tns:useCasePack"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="constraint">
+    <xs:sequence>
+      <xs:element name="id" type="xs:int"/>
+      <xs:element name="target" type="xs:double"/>
+      <xs:element name="targetProbability" type="xs:byte"/>
+      <xs:element minOccurs="0" name="type" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="granularityLevel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element name="value" type="xs:byte"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="granularityQuestion">
+    <xs:sequence>
+      <xs:element name="factor" type="xs:double"/>
+      <xs:element minOccurs="0" name="factorName" type="xs:string"/>
+      <xs:element name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="level" type="tns:granularityLevel"/>
+      <xs:element minOccurs="0" name="question" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="solutionStaffingShape">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="phase" type="tns:phase"/>
+      <xs:element name="selected" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="staffingShape" type="tns:staffingShape"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="staffingShape">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="useCasePack">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="useCases" nillable="true" type="tns:useCase"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="useCase">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="assumptions" type="xs:string"/>
+      <xs:element minOccurs="0" name="certainty" type="tns:certainty"/>
+      <xs:element minOccurs="0" name="granularityOverride" type="tns:granularityLevel"/>
+      <xs:element name="inScope" type="xs:boolean"/>
+      <xs:element name="multiplier" type="xs:double"/>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element minOccurs="0" name="useCaseComplexity" type="tns:useCaseComplexity"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="certainty">
+    <xs:sequence>
+      <xs:element name="factor" type="xs:double"/>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="useCaseComplexity">
+    <xs:sequence>
+      <xs:element name="factor" type="xs:double"/>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EstimationServiceException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="generateReport">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="generateReportResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:report"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="report">
+    <xs:sequence>
+      <xs:element name="averageStaff" type="xs:float"/>
+      <xs:element minOccurs="0" name="life" type="tns:projectLife"/>
+      <xs:element minOccurs="0" name="rayleighResults" type="tns:rayleighResult"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="projectLife">
+    <xs:complexContent>
+      <xs:extension base="tns:reportItem">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="phases" nillable="true" type="tns:reportPhase"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType abstract="true" name="reportItem">
+    <xs:sequence>
+      <xs:element name="duration" type="xs:float"/>
+      <xs:element name="effort" type="xs:float"/>
+      <xs:element minOccurs="0" name="endDate" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="startDate" type="xs:dateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="reportPhase">
+    <xs:complexContent>
+      <xs:extension base="tns:reportItem">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="milestones" nillable="true" type="tns:reportMilestone"/>
+          <xs:element minOccurs="0" name="phase" type="tns:phase"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="reportMilestone">
+    <xs:complexContent>
+      <xs:extension base="tns:reportItem">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="milestone" type="tns:milestone"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="rayleighResult"/>
+
+  <xs:complexType name="EntityNotFoundException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

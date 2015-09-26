@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<app:application xmlns:app="http://geronimo.apache.org/xml/ns/j2ee/application-2.0" xmlns:client="http://geronimo.apache.org/xml/ns/j2ee/application-client-2.0" xmlns:conn="http://geronimo.apache.org/xml/ns/j2ee/connector-1.2" xmlns:dep="http://geronimo.apache.org/xml/ns/deployment-1.2" xmlns:ejb="http://openejb.apache.org/xml/ns/openejb-jar-2.2" xmlns:log="http://geronimo.apache.org/xml/ns/loginconfig-2.0" xmlns:name="http://geronimo.apache.org/xml/ns/naming-1.2" xmlns:pers="http://java.sun.com/xml/ns/persistence" xmlns:pkgen="http://openejb.apache.org/xml/ns/pkgen-2.1" xmlns:sec="http://geronimo.apache.org/xml/ns/security-2.0" xmlns:web="http://geronimo.apache.org/xml/ns/j2ee/web-2.0.1" application-name="WebEst">
+    <dep:environment>
+        <dep:moduleId>
+            <dep:groupId>com.ibm</dep:groupId>
+            <dep:artifactId>webest</dep:artifactId>
+            <dep:version>1.0</dep:version>
+            <dep:type>car</dep:type>
+        </dep:moduleId>
+        <dep:dependencies>
+            <dep:dependency>
+                <dep:groupId>org.apache.geronimo.framework</dep:groupId>
+                <dep:artifactId>j2ee-security</dep:artifactId>
+                <dep:type>car</dep:type>
+            </dep:dependency>
+        </dep:dependencies>
+        <dep:hidden-classes>
+            <dep:filter>org.apache.openjpa.enhance.PCEnhancer</dep:filter>
+        </dep:hidden-classes>
+    </dep:environment>
+    <app:module>
+        <app:connector>derby-client-xa-1.5.rar</app:connector>
+        <app:alt-dd>derby-WebEstXA-plan.xml</app:alt-dd>
+    </app:module>
+    <app:module>
+        <app:connector>derby-client-local-1.5.rar</app:connector>
+        <app:alt-dd>derby-WebEstLocal-plan.xml</app:alt-dd>
+    </app:module>
+    <sec:security>
+        <sec:role-mappings>
+            <sec:role role-name="admin">
+                <sec:principal class="org.apache.geronimo.security.realm.providers.GeronimoGroupPrincipal" name="admin"/>
+            </sec:role>
+            <sec:role role-name="estimator">
+                <sec:principal class="org.apache.geronimo.security.realm.providers.GeronimoGroupPrincipal" name="estimator"/>
+            </sec:role>
+            <sec:role role-name="manager">
+                <sec:principal class="org.apache.geronimo.security.realm.providers.GeronimoGroupPrincipal" name="manager"/>
+            </sec:role>
+        </sec:role-mappings>
+    </sec:security>
+    <dep:gbean class="org.apache.geronimo.security.realm.GenericSecurityRealm" name="WebEstAuthentication">
+        <dep:attribute name="realmName">WebEstAuthentication</dep:attribute>
+        <dep:reference name="ServerInfo">
+            <dep:name>ServerInfo</dep:name>
+        </dep:reference>
+        <dep:xml-reference name="LoginModuleConfiguration">
+            <log:loginConfig>
+                <log:login-module control-flag="REQUIRED" wrap-principals="false">
+                    <log:login-domain-name>WebEstAuthentication</log:login-domain-name>
+                    <log:login-module-class>org.apache.geronimo.security.realm.providers.SQLLoginModule</log:login-module-class>
+                    <log:option name="dataSourceName">WebEstLocal</log:option>
+                    <log:option name="dataSourceApplication">com.ibm/webest/1.0/car</log:option>
+                    <log:option name="userSelect">select u.id, u.password from "USER" u where u.id = ?</log:option>
+                    <log:option name="groupSelect">select u.id, u.role from "USER" u where u.id = ?</log:option>
+                    <log:option name="digest">MD5</log:option>
+                    <log:option name="encoding">hex</log:option>
+                </log:login-module>
+            </log:loginConfig>
+        </dep:xml-reference>
+    </dep:gbean>
+</app:application>

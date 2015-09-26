@@ -1,0 +1,315 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Tables</title>
+  <link rel="stylesheet" type="text/css" href="../stylesheet.css">
+</head>
+<body onload="setTitle()">
+<script type="text/javascript">
+function setTitle(){
+  parent.document.title="SOLUTION";
+}
+</script>
+
+<h2
+  >
+  SOLUTION
+      (SOLUTION)
+  </h2>
+
+
+<table width="100%" border="1" cellpadding="3" cellspacing="0" >
+  <tr class="TableHeadingColor">
+    <th width="1%">No.</th>
+    <th width="14%">Logical Name</th>
+    <th width="14%">Physical Name</th>
+    <th width="10%">Type</th>
+    <th width="3%">Null</th>
+    <th width="3%">Default Value</th>
+    <th width="30%">Description</th>
+  </tr>
+    <tr>
+    <td align="right" nowrap>
+              <img src="../images/primarykey.gif">
+            1
+    </td>
+    <td><strong>ID</strong></td>
+    <td><strong><code>ID</code></strong></td>
+    <td><code>BIGINT(19)</code></td>
+    <td align="center">
+          N
+        </td>
+    <td>&nbsp;</td>
+    <td>
+              AUTO INCREMENT<br>
+            </td>
+  </tr>
+    <tr>
+    <td align="right" nowrap>
+            2
+    </td>
+    <td><strong>NAME</strong></td>
+    <td><strong><code>NAME</code></strong></td>
+    <td><code>VARCHAR(50)</code></td>
+    <td align="center">
+          N
+        </td>
+    <td>&nbsp;</td>
+    <td>
+                  &nbsp;
+        </td>
+  </tr>
+    <tr>
+    <td align="right" nowrap>
+            3
+    </td>
+    <td><strong>ESTIMATE</strong></td>
+    <td><strong><code>ESTIMATE</code></strong></td>
+    <td><code>INTEGER(10)</code></td>
+    <td align="center">
+          N
+        </td>
+    <td>&nbsp;</td>
+    <td>
+                  &nbsp;
+        </td>
+  </tr>
+    <tr>
+    <td align="right" nowrap>
+            4
+    </td>
+    <td><strong>PI</strong></td>
+    <td><strong><code>PI</code></strong></td>
+    <td><code>INTEGER(10)</code></td>
+    <td align="center">
+          Y
+        </td>
+    <td>&nbsp;</td>
+    <td>
+                  &nbsp;
+        </td>
+  </tr>
+    <tr>
+    <td align="right" nowrap>
+            5
+    </td>
+    <td><strong>PP</strong></td>
+    <td><strong><code>PP</code></strong></td>
+    <td><code>INTEGER(10)</code></td>
+    <td align="center">
+          Y
+        </td>
+    <td>&nbsp;</td>
+    <td>
+                  &nbsp;
+        </td>
+  </tr>
+    <tr>
+    <td align="right" nowrap>
+            6
+    </td>
+    <td><strong>GEARINGFACTOR</strong></td>
+    <td><strong><code>GEARINGFACTOR</code></strong></td>
+    <td><code>INTEGER(10)</code></td>
+    <td align="center">
+          N
+        </td>
+    <td>&nbsp;</td>
+    <td>
+                  &nbsp;
+        </td>
+  </tr>
+    <tr>
+    <td align="right" nowrap>
+            7
+    </td>
+    <td><strong>GRANULARITY</strong></td>
+    <td><strong><code>GRANULARITY</code></strong></td>
+    <td><code>SMALLINT(5)</code></td>
+    <td align="center">
+          N
+        </td>
+    <td>&nbsp;</td>
+    <td>
+                  &nbsp;
+        </td>
+  </tr>
+    <tr>
+    <td align="right" nowrap>
+            8
+    </td>
+    <td><strong>PROJECTSTARTDATE</strong></td>
+    <td><strong><code>PROJECTSTARTDATE</code></strong></td>
+    <td><code>DATE</code></td>
+    <td align="center">
+          N
+        </td>
+    <td>&nbsp;</td>
+    <td>
+                  &nbsp;
+        </td>
+  </tr>
+    <tr>
+    <td align="right" nowrap>
+            9
+    </td>
+    <td><strong>COMMENT</strong></td>
+    <td><strong><code>COMMENT</code></strong></td>
+    <td><code>VARCHAR(4000)</code></td>
+    <td align="center">
+          Y
+        </td>
+    <td>&nbsp;</td>
+    <td>
+                  &nbsp;
+        </td>
+  </tr>
+    <tr>
+    <td align="right" nowrap>
+            10
+    </td>
+    <td><strong>CREATIONDATE</strong></td>
+    <td><strong><code>CREATIONDATE</code></strong></td>
+    <td><code>TIMESTAMP</code></td>
+    <td align="center">
+          N
+        </td>
+    <td>&nbsp;</td>
+    <td>
+                  &nbsp;
+        </td>
+  </tr>
+    <tr>
+    <td align="right" nowrap>
+            11
+    </td>
+    <td><strong>MODIFYDATE</strong></td>
+    <td><strong><code>MODIFYDATE</code></strong></td>
+    <td><code>TIMESTAMP</code></td>
+    <td align="center">
+          N
+        </td>
+    <td>&nbsp;</td>
+    <td>
+                  &nbsp;
+        </td>
+  </tr>
+    <tr>
+    <td align="right" nowrap>
+            12
+    </td>
+    <td><strong>LASTEDITOR</strong></td>
+    <td><strong><code>LASTEDITOR</code></strong></td>
+    <td><code>VARCHAR(50)</code></td>
+    <td align="center">
+          N
+        </td>
+    <td>&nbsp;</td>
+    <td>
+                  &nbsp;
+        </td>
+  </tr>
+  </table>
+
+  <br>
+  <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr class="TableHeadingColor">
+      <td><strong>Foreign Keys</strong></td>
+    </tr>
+  </table>
+          <h3>FK_SOL_LE</h3>
+    <table border="1" cellpadding="3" cellspacing="0">
+      <tr><th>Column</th><th>Referenced Column</th></tr>
+            <tr>
+        <td><code>LASTEDITOR</code></td>
+        <td><code><a href="USER.html">USER.ID</a></code></td>
+      </tr>
+          </table>
+          <hr>
+        <h3>FK_SOL_GRAN</h3>
+    <table border="1" cellpadding="3" cellspacing="0">
+      <tr><th>Column</th><th>Referenced Column</th></tr>
+            <tr>
+        <td><code>GRANULARITY</code></td>
+        <td><code><a href="GRANULARITYLEVEL.html">GRANULARITYLEVEL.ID</a></code></td>
+      </tr>
+          </table>
+          <hr>
+        <h3>FK_SOL_EST</h3>
+    <table border="1" cellpadding="3" cellspacing="0">
+      <tr><th>Column</th><th>Referenced Column</th></tr>
+            <tr>
+        <td><code>ESTIMATE</code></td>
+        <td><code><a href="ESTIMATE.html">ESTIMATE.ID</a></code></td>
+      </tr>
+          </table>
+  
+  <br>
+  <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr class="TableHeadingColor">
+      <td><strong>Indices</strong></td>
+    </tr>
+  </table>
+  
+          <h3>SQL110218162405921 (INDEX)</h3>
+    <dl>
+      <dt><strong>Columns:</strong></dt>
+      <dd>
+                  <code>LASTEDITOR</code><br>
+              </dd>
+    </dl>
+          <hr>
+        <h3>SQL110218162405922 (INDEX)</h3>
+    <dl>
+      <dt><strong>Columns:</strong></dt>
+      <dd>
+                  <code>ESTIMATE</code><br>
+              </dd>
+    </dl>
+          <hr>
+        <h3>SQL110218162405923 (INDEX)</h3>
+    <dl>
+      <dt><strong>Columns:</strong></dt>
+      <dd>
+                  <code>GRANULARITY</code><br>
+              </dd>
+    </dl>
+    
+
+  <br>
+  <table border="1" cellpadding="3" cellspacing="0" width="100%">
+    <tr class="TableHeadingColor">
+      <td><strong>Referenced Tables</strong></td>
+    </tr>
+  </table>
+  <br>
+  <table border="1" cellpadding="3" cellspacing="0">
+    <tr><th>Table</th><th>Column</th></tr>
+                  <tr>
+          <td><code><a href="CONSTRAINT.html">CONSTRAINT.SOLUTION</a></code></td>
+          <td>
+            <code>ID</code><br>
+          </td>
+        </tr>
+                        <tr>
+          <td><code><a href="SOLUTION_GRANULARITYQUESTION.html">SOLUTION_GRANULARITYQUESTION.SOLUTION</a></code></td>
+          <td>
+            <code>ID</code><br>
+          </td>
+        </tr>
+                        <tr>
+          <td><code><a href="SOLUTION_STAFFINGSHAPE.html">SOLUTION_STAFFINGSHAPE.SOLUTION</a></code></td>
+          <td>
+            <code>ID</code><br>
+          </td>
+        </tr>
+                        <tr>
+          <td><code><a href="USECASEPACK.html">USECASEPACK.SOLUTION</a></code></td>
+          <td>
+            <code>ID</code><br>
+          </td>
+        </tr>
+            </table>
+
+</body>
+</html>

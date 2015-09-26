@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="webest-persistence-model" default="create-init-script" basedir=".">
+	<target name="create-init-script">
+		<concat destfile="derby-initialize-database.sql" fixlastline="yes">
+			<filelist dir="."
+				files="create_tables.sql iso_countries.sql iso_monetary_units.sql effort_units.sql mttd_time_units.sql uucp_sizing_internal_data.sql pi_pp_lookup_table.sql staffing_shapes.sql roles.sql calculation_parameters.sql" />
+		</concat>
+	</target>
+</project>

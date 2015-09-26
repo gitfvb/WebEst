@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+	<persistence-unit name="webest-test">
+		<class>com.ibm.webest.persistence.model.User</class>
+		<class>com.ibm.webest.persistence.model.UseCasePack</class>
+		<class>com.ibm.webest.persistence.model.UseCaseComplexity</class>
+		<class>com.ibm.webest.persistence.model.UseCase</class>
+		<class>com.ibm.webest.persistence.model.TemplateValues</class>
+		<class>com.ibm.webest.persistence.model.Template</class>
+		<class>com.ibm.webest.persistence.model.StaffingShape</class>
+		<class>com.ibm.webest.persistence.model.SolutionStaffingShape</class>
+		<class>com.ibm.webest.persistence.model.Solution</class>
+		<class>com.ibm.webest.persistence.model.Role</class>
+		<class>com.ibm.webest.persistence.model.ProjectEnvironment</class>
+		<class>com.ibm.webest.persistence.model.PiPpLookup</class>
+		<class>com.ibm.webest.persistence.model.PiHistoryEntry</class>
+		<class>com.ibm.webest.persistence.model.PiHistoryCategory</class>
+		<class>com.ibm.webest.persistence.model.Phase</class>
+		<class>com.ibm.webest.persistence.model.Organization</class>
+		<class>com.ibm.webest.persistence.model.MonetaryUnit</class>
+		<class>com.ibm.webest.persistence.model.Milestone</class>
+		<class>com.ibm.webest.persistence.model.MeasuringUnit</class>
+		<class>com.ibm.webest.persistence.model.MTTDTimeUnit</class>
+		<class>com.ibm.webest.persistence.model.IndustrySectorGroup</class>
+		<class>com.ibm.webest.persistence.model.IndustrySector</class>
+		<class>com.ibm.webest.persistence.model.GranularityQuestion</class>
+		<class>com.ibm.webest.persistence.model.GranularityLevel</class>
+		<class>com.ibm.webest.persistence.model.Estimate</class>
+		<class>com.ibm.webest.persistence.model.EffortUnit</class>
+		<class>com.ibm.webest.persistence.model.Division</class>
+		<class>com.ibm.webest.persistence.model.DefectCategory</class>
+		<class>com.ibm.webest.persistence.model.Country</class>
+		<class>com.ibm.webest.persistence.model.Constraint</class>
+		<class>com.ibm.webest.persistence.model.Certainty</class>
+		<class>com.ibm.webest.persistence.model.ApplicationTypeGroup</class>
+		<class>com.ibm.webest.persistence.model.ApplicationType</class>
+		<class>com.ibm.webest.persistence.model.CalculationParameter</class>
+		<properties>
+			<property name="openjpa.ConnectionURL"
+				value="jdbc:derby://localhost:1527/webest;create=true" />
+			<property name="openjpa.ConnectionDriverName" value="org.apache.derby.jdbc.ClientDriver" />
+			<property name="openjpa.ConnectionUserName" value="webest" />
+			<property name="openjpa.ConnectionPassword" value="webest" />
+			<property name="openjpa.InverseManager" value="true"/>
+			<property name="openjpa.Log" value="SQL=TRACE" />
+		</properties>
+	</persistence-unit>
+
+</persistence>

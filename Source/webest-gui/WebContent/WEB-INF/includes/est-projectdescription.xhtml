@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:tr="http://myfaces.apache.org/trinidad"
+    xmlns:trh="http://myfaces.apache.org/trinidad/html">
+
+
+<ui:composition>
+    <tr:panelCaptionGroup captionText="Summary">
+                <tr:panelFormLayout>
+                    <tr:panelLabelAndMessage label="Estimate Name">
+                        <tr:inputText id="Name" required="true" simple="true" readOnly="#{!authAction.estimateEditable}"
+                            value="#{estimateAction.currentEstimate.name}" />
+                    </tr:panelLabelAndMessage>
+                    <tr:panelLabelAndMessage label="Project Name">
+                        <tr:inputText id="ProjectName" required="true" simple="true" readOnly="#{!authAction.estimateEditable}"
+                            value="#{estimateAction.currentEstimate.projectEnvironment.projectName}" />
+                    </tr:panelLabelAndMessage>
+                    <tr:panelLabelAndMessage label="Estimator">
+                        <tr:selectOneChoice id="Estimator" simple="true" readOnly="#{!authAction.administrator}"
+                            value="#{estimateAction.currentEstimate.estimator}"
+                            requiredMessageDetail="Please select an estimator."
+                            required="true">
+                            <f:selectItems value="#{projectDescriptionAction.estimators}" />
+                        </tr:selectOneChoice>
+                    </tr:panelLabelAndMessage>
+                    <tr:panelLabelAndMessage label="Organization">
+                        <tr:selectOneChoice simple="true" readOnly="#{!authAction.estimateEditable || !estimateAction.divisionSelectable}"
+                                            value="#{projectDescriptionAction.selectedOrganization}"
+                                            immediate="true"
+                                            autoSubmit="true"
+                                            valueChangeListener="#{projectDescriptionAction.organizationChanged}"
+                                            id="organization">
+                            <f:selectItems value="#{projectDescriptionAction.organizations}" />
+                        </tr:selectOneChoice>
+                    </tr:panelLabelAndMessage>
+                    <tr:panelLabelAndMessage label="Division">
+                        <tr:selectOneChoice simple="true"  readOnly="#{!authAction.estimateEditable || !estimateAction.divisionSelectable}"
+                                            value="#{estimateAction.currentEstimate.division}"
+                                            partialTriggers="organization"
+                                            requiredMessageDetail="Please select a division."
+                                            id="Division"
+                                            required="true">
+                            <f:selectItems value="#{projectDescriptionAction.divisions}" />
+                        </tr:selectOneChoice>
+                    </tr:panelLabelAndMessage>
+                    <tr:panelLabelAndMessage label="Country">
+                        <tr:selectOneChoice id="Country" simple="true" readOnly="#{!authAction.estimateEditable}"
+                            value="#{estimateAction.currentEstimate.projectEnvironment.country}"
+                            requiredMessageDetail="Please select a country."
+                            required="true">
+                            <f:selectItems value="#{projectDescriptionAction.countries}" />
+                        </tr:selectOneChoice>
+                    </tr:panelLabelAndMessage>
+                    
+                    
+                </tr:panelFormLayout>
+            
+        
+            <br/>
+            <h:panelGrid columns="2" width="100%">
+            
+                <tr:panelCaptionGroup captionText="Application Type">
+                    
+                        <tr:selectOneChoice readOnly="#{!authAction.estimateEditable}"
+                                            value="#{projectDescriptionAction.selectedApplicationTypeGroup}"
+                                            autoSubmit="true"
+                                            immediate="true"
+                                            
+                                            valueChangeListener="#{projectDescriptionAction.applicationTypeGroupChanged}"
+                                            id="applicationtypegroup">
+                            <f:selectItems value="#{projectDescriptionAction.applicationTypeGroups}" />
+                        </tr:selectOneChoice>
+                        <tr:selectOneChoice readOnly="#{!authAction.estimateEditable}"
+                                            value="#{estimateAction.currentEstimate.projectEnvironment.applicationType}"
+                                            partialTriggers="applicationtypegroup"
+                                            id="ApplicationType"
+                                            requiredMessageDetail="Please select an application type."
+                                            >
+                            <f:selectItems value="#{projectDescriptionAction.applicationTypes}" />
+                        </tr:selectOneChoice>    
+                </tr:panelCaptionGroup>
+    
+                <tr:panelCaptionGroup captionText="Industry Sector">
+                        
+                        <tr:selectOneChoice readOnly="#{!authAction.estimateEditable}"
+                                            value="#{projectDescriptionAction.selectedIndustrySectorGroup}"
+                                            autoSubmit="true"
+                                            valueChangeListener="#{projectDescriptionAction.industrySectorGroupChanged}"
+                                            immediate="true"
+                                            
+                                            id="industrysectorgroup">
+                            <f:selectItems value="#{projectDescriptionAction.industrySectorGroups}" />
+                        </tr:selectOneChoice>
+                        <tr:selectOneChoice readOnly="#{!authAction.estimateEditable}"
+                                            value="#{estimateAction.currentEstimate.projectEnvironment.industrySector}"
+                                            partialTriggers="industrysectorgroup"
+                                            id="IndustrySector"
+                                            requiredMessageDetail="Please select an industry sector."
+                                            >
+                            <f:selectItems value="#{projectDescriptionAction.industrySectors}" />
+                        </tr:selectOneChoice>
+            
+                </tr:panelCaptionGroup>
+            </h:panelGrid>
+            
+    
+    </tr:panelCaptionGroup>
+
+<br/>
+    <tr:panelCaptionGroup captionText="Basic Units">
+        
+            <tr:panelFormLayout>
+                <tr:panelLabelAndMessage label="Monetary Unit">
+                    <tr:selectOneChoice simple="true" readOnly="#{!authAction.estimateEditable}"
+                                        value="#{estimateAction.currentEstimate.projectEnvironment.monetaryUnit}"
+                                        required="true"
+                                        requiredMessageDetail="Please select a monetary unit."
+                                         id="MonetaryUnit">
+                        <f:selectItems value="#{projectDescriptionAction.monetaryUnits}" />
+                    </tr:selectOneChoice>
+                </tr:panelLabelAndMessage>
+                <tr:panelLabelAndMessage label="Effort Unit">
+                    <tr:selectOneChoice simple="true" readOnly="#{!authAction.estimateEditable}"
+                                        value="#{estimateAction.currentEstimate.projectEnvironment.effortUnit}"
+                                        required="true"
+                                        requiredMessageDetail="Please select an effort unit."
+                                         id="EffortUnit">
+                        <f:selectItems value="#{projectDescriptionAction.effortUnits}" />
+                    </tr:selectOneChoice>
+                </tr:panelLabelAndMessage>
+                <tr:panelLabelAndMessage label="MTTD Time Unit">
+                    <tr:selectOneChoice simple="true" readOnly="#{!authAction.estimateEditable}"
+                                        value="#{estimateAction.currentEstimate.projectEnvironment.mttdTimeUnit}"
+                                        required="true"
+                                        requiredMessageDetail="Please select a MTTD time unit."
+                                         id="MTTDTimeUnit">
+                        <f:selectItems value="#{projectDescriptionAction.mttdTimeUnits}" />
+                    </tr:selectOneChoice>
+                </tr:panelLabelAndMessage>
+            </tr:panelFormLayout>
+        
+    </tr:panelCaptionGroup>
+</ui:composition>
+</html>

@@ -1,0 +1,16 @@
+com.ibm.webest.gui.action
+com.ibm.webest.gui.model
+com.ibm.webest.gui.utils
+com.ibm.webest.persistence.model
+com.ibm.webest.persistence.service
+com.ibm.webest.persistence.service.impl
+com.ibm.webest.persistence.validation
+com.ibm.webest.processing
+com.ibm.webest.processing.administration
+com.ibm.webest.processing.calculation
+com.ibm.webest.processing.helpers
+com.ibm.webest.processing.impl.administration
+com.ibm.webest.processing.impl.calculation
+com.ibm.webest.processing.model
+com.ibm.webest.webservice
+org.apache.openjpa.enhance

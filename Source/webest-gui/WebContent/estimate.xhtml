@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:tr="http://myfaces.apache.org/trinidad"
+    xmlns:trh="http://myfaces.apache.org/trinidad/html">
+
+<f:view>
+    <ui:composition template="/WEB-INF/templates/template.xhtml">
+
+        <ui:define name="main">
+            <tr:form>
+                <div id="mainview"><tr:panelBox text="Estimate"
+                    styleClass="hundredPercent">
+                    <tr:panelHorizontalLayout partialTriggers="saveTemplate:okHideSaveTemplate">
+                        <tr:outputText styleClass="smalltext"
+                            shortDesc="#{estimateAction.currentEstimate.projectEnvironment.template.description}"
+                            rendered="#{estimateAction.currentEstimate.projectEnvironment.template != null}"
+                            value="Used Template: #{estimateAction.currentEstimate.projectEnvironment.template.name}" />
+                    </tr:panelHorizontalLayout>
+                    <div id="mainviewcontent"><!-- OPTIONS BAR ON TOP OF CENTER SCREEN -->
+                    <tr:panelBorderLayout rendered="#{authAction.estimateEditable}">
+                        <f:facet name="left">
+                            <tr:panelButtonBar partialTriggers="saveTemplate:okHideSaveTemplate">
+                                <tr:commandButton text="Save"
+                                    action="#{estimateAction.saveEstimate}" />
+                                <tr:commandButton text="Clone"
+                                    disabled="#{estimateAction.currentEstimate.id &lt; 1}"
+                                    action="#{estimateAction.cloneEstimate}" />
+                                <tr:commandButton
+                                    rendered="#{estimateAction.currentEstimate.projectEnvironment.template != null}"
+                                    text="Restore Template Defaults"
+                                    action="#{estimateAction.restoreDefaults}" />
+                                <tr:commandButton
+                                    disabled="#{estimateAction.currentEstimate.id &lt; 1}"
+                                    text="Save as Template" id="showSaveTemplate"
+                                    actionListener="#{estimateAction.changeSaveTemplatePopupVisible}"
+                                    partialSubmit="true" />
+                                <tr:commandButton immediate="true" text="Delete"
+                                    actionListener="#{estimateAction.changeDeletePopupVisible}"
+                                    id="showDeleteEstimate" partialSubmit="true" />
+                                <tr:commandButton text="New Solution"
+                                    disabled="#{estimateAction.currentEstimate.id &lt; 1}"
+                                    action="#{estimateAction.createSolution}" />
+                            </tr:panelButtonBar>
+                        </f:facet>
+                        <f:facet name="right">
+                            <tr:statusIndicator styleClass="statusIndicator" />
+                        </f:facet>
+                    </tr:panelBorderLayout> <!-- TABS BELOW OPTIONS BAR  --> <tr:panelTabbed position="above">
+                        <tr:showDetailItem text="Project Description">
+                            <ui:include src="/WEB-INF/includes/est-projectdescription.xhtml" />
+                        </tr:showDetailItem>
+
+                        <tr:showDetailItem text="Reliability">
+                            <ui:include src="/WEB-INF/includes/est-reliability.xhtml" />
+                        </tr:showDetailItem>
+
+                        <tr:showDetailItem text="Phases">
+                            <ui:include src="/WEB-INF/includes/est-phases.xhtml" />
+                        </tr:showDetailItem>
+
+                        <tr:showDetailItem text="Milestones">
+                            <ui:include src="/WEB-INF/includes/est-milestones.xhtml" />
+                        </tr:showDetailItem>
+
+                    </tr:panelTabbed></div>
+
+
+                    <div id="mainviewcomments"><tr:panelBox text="Comments"
+                        styleClass="hundredPercent">
+
+                        <tr:commandButton rendered="#{authAction.estimateEditable}"
+                            actionListener="#{estimateAction.addCommentSignature}"
+                            text="Add Signature" partialSubmit="true" id="addSignature" />
+                        <tr:inputText id="Comment" readOnly="#{!authAction.estimateEditable}"
+                            value="#{estimateAction.currentEstimate.comment}"
+                            partialTriggers="addSignature" rows="5" columns="100" />
+
+                    </tr:panelBox></div>
+                    <tr:panelFormLayout rendered="#{estimateAction.currentEstimate.id &gt; 0}">
+                        <tr:panelLabelAndMessage styleClass="smalltext" label="Created:">
+                            <h:outputText styleClass="smalltext"
+                                value="#{estimateAction.currentEstimate.creationDate}">
+                                <f:convertDateTime type="both" timeStyle="short" />
+                                </h:outputText>
+                        </tr:panelLabelAndMessage>
+                        <tr:panelLabelAndMessage styleClass="smalltext" label="Modified:">
+                            <h:outputText styleClass="smalltext"
+                                value="#{estimateAction.currentEstimate.modifyDate}"><f:convertDateTime timeStyle="short" type="both" /></h:outputText><tr:spacer width="5"/><h:outputText styleClass="smalltext" value="by #{estimateAction.currentEstimate.lastEditor.lastName}, #{estimateAction.currentEstimate.lastEditor.firstName}" />
+                        </tr:panelLabelAndMessage>
+                    </tr:panelFormLayout>
+
+                </tr:panelBox></div>
+
+
+                <!-- POPUPS -->
+                <tr:panelGroupLayout rendered="#{authAction.estimateEditable}"
+                    partialTriggers="showDeleteEstimate okHideDeleteEstimate cancelHideDeleteEstimate">
+                    <tr:panelGroupLayout
+                        rendered="#{estimateAction.deletePopupVisible}">
+                        <div class="backgrounder"></div>
+                        <div class="wrapper est_deletePopup_wrapper">
+                        <div class="container est_deletePopup_container"><tr:outputText
+                            value="Do you really want to delete this estimate?" /> <tr:spacer
+                            height="10" /> <tr:panelHorizontalLayout
+                            inlineStyle="width:100%">
+                            <tr:commandButton immediate="true" text="OK"
+                                actionListener="#{estimateAction.changeDeletePopupVisible}"
+                                id="okHideDeleteEstimate"
+                                action="#{estimateAction.deleteEstimate}"
+                                inlineStyle="margin:auto;" />
+                            <tr:commandButton immediate="true" text="Cancel"
+                                actionListener="#{estimateAction.changeDeletePopupVisible}"
+                                id="cancelHideDeleteEstimate" partialSubmit="true"
+                                inlineStyle="margin:auto;" />
+                        </tr:panelHorizontalLayout></div>
+                        </div>
+                    </tr:panelGroupLayout>
+                </tr:panelGroupLayout>
+
+                <tr:panelGroupLayout rendered="#{authAction.estimateEditable}"
+                    partialTriggers="showSaveTemplate saveTemplate:okHideSaveTemplate saveTemplate:cancelHideSaveTemplate">
+                    <tr:panelGroupLayout
+                        rendered="#{estimateAction.saveTemplatePopupVisible}">
+                        <div class="backgrounder"></div>
+                        <div class="wrapper saveTemplatePopup_wrapper">
+                        <div class="container saveTemplatePopup_container">
+                        <tr:subform id="saveTemplate">
+                        <div>Please enter name and description<br />for the new template:</div>
+                        <tr:panelFormLayout>
+                            <tr:panelLabelAndMessage label="Name">
+                                <tr:inputText simple="true" id="newTemplateName"
+                                    value="#{estimateAction.newTemplateName}" required="true" />
+                            </tr:panelLabelAndMessage>
+                            <tr:panelLabelAndMessage label="Description">
+                                <tr:inputText simple="true" id="newTemplateDescription"
+                                    value="#{estimateAction.newTemplateDescription}"
+                                    required="true" />
+                            </tr:panelLabelAndMessage>
+                            
+                        </tr:panelFormLayout> <tr:spacer height="10" /> <tr:panelHorizontalLayout
+                            inlineStyle="width:100%">
+                            <tr:commandButton text="OK"
+                                actionListener="#{estimateAction.changeSaveTemplatePopupVisible}"
+                                id="okHideSaveTemplate" partialSubmit="true"
+                                action="#{estimateAction.saveAsTemplate}"
+                                inlineStyle="margin:auto;" />
+                            <tr:commandButton immediate="true" text="Cancel"
+                                actionListener="#{estimateAction.changeSaveTemplatePopupVisible}"
+                                action="#{estimateAction.resetSaveTemplatePopup}"
+                                id="cancelHideSaveTemplate" partialSubmit="true"
+                                inlineStyle="margin:auto;">
+                                <tr:resetActionListener/>
+                                </tr:commandButton>
+                        </tr:panelHorizontalLayout>
+                        </tr:subform>
+                        </div>
+                        </div>
+                    </tr:panelGroupLayout>
+                </tr:panelGroupLayout>
+
+            </tr:form>
+        </ui:define>
+
+    </ui:composition>
+</f:view>
+</html>

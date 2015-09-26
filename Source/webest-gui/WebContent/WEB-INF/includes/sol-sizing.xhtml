@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:tr="http://myfaces.apache.org/trinidad"
+	xmlns:trh="http://myfaces.apache.org/trinidad/html">
+
+<ui:composition>
+
+	<tr:treeTable var="row"
+		value="#{sizingAction.model}"
+		rowSelection="#{authAction.estimateEditable ? 'multiple' : 'none'}"
+		emptyText="No use case packages available." id="usecasetable"
+		varStatus="status"
+		binding="#{sizingAction.table}"
+		initiallyExpanded="true"
+		rootNodeRendered="false"
+		styleClass="sizingTable">
+		<f:facet name="header">
+			<h:panelGrid styleClass="hundredPercent" columnClasses="alignRight smalltext boldtext">
+					<h:outputFormat value="Underlying Granularity: {0}">
+						<f:param
+							value="#{solutionAction.currentSolution.granularity.name}" />
+					</h:outputFormat>
+			</h:panelGrid>
+		</f:facet>
+		<f:facet name="nodeStamp">
+			<tr:column>
+				<f:facet name="header">
+					<tr:outputText value="Name" />
+				</f:facet>
+
+				<tr:panelHorizontalLayout>
+					<tr:inputText id="Name" readOnly="#{!authAction.estimateEditable}"
+						value="#{row.object.name}" columns="15"
+						rendered="#{row.object != null}" />
+					<tr:spacer width="5" />
+					<tr:panelPopup
+						rendered="#{authAction.estimateEditable and row.object.class.simpleName eq 'UseCasePack' and row.object != null}"
+						icon="images/icons/add.png" shortDesc="Add Use Cases">
+						<tr:panelHorizontalLayout>
+							<tr:commandButton rendered="#{authAction.estimateEditable}"
+								text="Add" actionListener="#{sizingAction.addUseCase}"
+								partialSubmit="true">
+								<f:param name="node" value="#{row}" id="node" />
+							</tr:commandButton>
+							<tr:inputNumberSpinbox value="#{sizingAction.newUseCases}"
+								autoSubmit="true" immediate="true" />
+							<tr:spacer width="5" />
+							<tr:outputText styleClass="smalltext" value="Use Cases" />
+						</tr:panelHorizontalLayout>
+					</tr:panelPopup>
+				</tr:panelHorizontalLayout>
+
+			</tr:column>
+		</f:facet>
+
+		<tr:column>
+			<f:facet name="header">
+				<tr:outputText value="In Scope" />
+			</f:facet>
+			<tr:selectBooleanCheckbox readOnly="#{!authAction.estimateEditable}"
+				value="#{row.object.inScope}"
+				rendered="#{row.object.class.simpleName eq 'UseCase'}" />
+		</tr:column>
+
+		<tr:column>
+			<f:facet name="header">
+				<tr:outputText value="Complexity" />
+			</f:facet>
+			<tr:selectOneChoice id="Complexity" readOnly="#{!authAction.estimateEditable}"
+				value="#{row.object.useCaseComplexity}"
+				rendered="#{row.object.class.simpleName eq 'UseCase'}"
+				requiredMessageDetail="Please select a complexity."
+				required="true">
+				<f:selectItems
+					value="#{projectDescriptionAction.useCaseComplexities}" />
+			</tr:selectOneChoice>
+		</tr:column>
+
+		<tr:column>
+			<f:facet name="header">
+				<tr:outputText value="Certainty" />
+			</f:facet>
+			<tr:selectOneChoice id="Certainty" readOnly="#{!authAction.estimateEditable}"
+				value="#{row.object.certainty}"
+				rendered="#{row.object.class.simpleName eq 'UseCase'}"
+				requiredMessageDetail="Please select a certainty."
+				required="true">
+				<f:selectItems value="#{projectDescriptionAction.certainties}" />
+			</tr:selectOneChoice>
+		</tr:column>
+
+		<tr:column>
+			<f:facet name="header">
+				<tr:outputText value="UUCP" />
+			</f:facet>
+			<tr:outputText value="#{row.uucp}" columns="4"
+				rendered="#{row.object.class.simpleName eq 'UseCase'}"
+				shortDesc="Click 'Calculate UUCP and Total' to update. To calculate the uucp, you have to set granularity on tab 'use case granularity'. If scope is true, the formula will be: 'use case complexity factor' * 'granularity level'. If scope is false, the formula will be: 'use case complexity factor' * 'granularity override'." />
+		</tr:column>
+
+		<tr:column>
+			<f:facet name="header">
+				<tr:outputText value="Total" />
+			</f:facet>
+			<tr:outputText value="#{row.total}" columns="4"
+				rendered="#{row.object.class.simpleName eq 'UseCase'}"
+				shortDesc="Click 'Calculate UUCP and Total' to update. UUCP * Multiplier" />
+		</tr:column>
+
+		<tr:column>
+			<f:facet name="header">
+				<tr:outputText value="Multiplier" />
+			</f:facet>
+			<tr:inputText id="Multiplier"
+			readOnly="#{!authAction.estimateEditable}"
+				value="#{row.object.multiplier}" columns="4"
+				rendered="#{row.object.class.simpleName eq 'UseCase'}"
+				required="true"
+				requiredMessageDetail="Please enter Multiplicity" />
+		</tr:column>
+
+		<tr:column>
+			<f:facet name="header">
+				<tr:outputText value="Granularity Override" />
+			</f:facet>
+			<tr:selectOneChoice readOnly="#{!authAction.estimateEditable}"
+				value="#{row.object.granularityOverride}"
+				rendered="#{row.object.class.simpleName eq 'UseCase'}">
+				<f:selectItems
+					value="#{projectDescriptionAction.granularityOverrides}" />
+			</tr:selectOneChoice>
+		</tr:column>
+
+		<tr:column>
+			<f:facet name="header">
+				<tr:outputText value="Assumptions" />
+			</f:facet>
+			<tr:inputText id="Assumptions" value="#{row.object.assumptions}" columns="10" rows="2"
+				readOnly="#{!authAction.estimateEditable}"
+				rendered="#{row.object.class.simpleName eq 'UseCase'}" />
+		</tr:column>
+
+		<f:facet name="footer">
+			<tr:panelHorizontalLayout rendered="#{authAction.estimateEditable}">
+				<tr:commandButton text="Add Use Case Package"
+					action="#{sizingAction.addUseCasePack}" partialSubmit="true" />
+				<tr:commandButton text="Delete Selected"
+					action="#{sizingAction.delete}" partialSubmit="true" />
+				<tr:commandButton text="Calculate UUCP and Total"
+					action="#{sizingAction.calculateUucpAndTotal}" partialSubmit="true" />
+			</tr:panelHorizontalLayout>
+		</f:facet>
+
+	</tr:treeTable>
+
+</ui:composition>
+</html>

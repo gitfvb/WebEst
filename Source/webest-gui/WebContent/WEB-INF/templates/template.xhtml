@@ -1,0 +1,46 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:tr="http://myfaces.apache.org/trinidad"
+    xmlns:trh="http://myfaces.apache.org/trinidad/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.w3.org/1999/xhtml http://www.w3.org/2002/08/xhtml/xhtml1-transitional.xsd">
+    <html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:trh="http://myfaces.apache.org/trinidad/html">
+
+    <ui:insert name="htmlHead">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>IBM - WebEstimation</title>
+        <trh:styleSheet />
+        <link rel="stylesheet" type="text/css" href="css/template.css" />
+        <ui:include src="/WEB-INF/includes/ios-settings.xhtml" />
+        <script src="javascript/functions.js" type="text/javascript"></script>
+    </ui:insert>
+
+    <ui:insert name="body">
+
+        <div id="headerview"><ui:include
+            src="/WEB-INF/includes/header.xhtml" /></div>
+        <div id="mainviewcontainer"><tr:messages styleClass="messageBox" />
+        <div id="navsidebarview"><h:panelGroup>
+            <ui:include src="/WEB-INF/includes/navsidebar.xhtml" />
+        </h:panelGroup></div>
+        <div id="main"><h:panelGroup>
+            <ui:insert name="main" />
+        </h:panelGroup></div>
+        
+        <div id="footer">
+        <ui:include
+            src="/WEB-INF/includes/footer.xhtml" />        
+        </div>
+        
+        </div>
+        
+        
+
+    </ui:insert>
+    </html>
+</f:view>

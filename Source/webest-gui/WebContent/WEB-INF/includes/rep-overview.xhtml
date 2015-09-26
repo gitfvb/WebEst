@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:tr="http://myfaces.apache.org/trinidad"
+    xmlns:trh="http://myfaces.apache.org/trinidad/html">
+
+<ui:composition>
+    <tr:showDetailHeader id="general" text="General" disclosed="true" styleClass="reportHeader">
+        <tr:panelFormLayout labelWidth="45%" maxColumns="2" rows="7" styleClass="reportContent">
+            <tr:panelLabelAndMessage label="Estimate Name" styleClass="reportLabel">
+                <tr:outputText simple="true" value="#{solutionAction.currentSolution.estimate.name}" styleClass="reportValue" />
+            </tr:panelLabelAndMessage>
+            <tr:panelLabelAndMessage label="Project Name">
+                <tr:outputText simple="true" value="#{solutionAction.currentSolution.estimate.projectEnvironment.projectName}" styleClass="reportValue"  />
+            </tr:panelLabelAndMessage>
+            <tr:panelLabelAndMessage label="Estimator">
+                <tr:outputText simple="true" value="#{solutionAction.currentSolution.estimate.estimator.firstName} #{solutionAction.currentSolution.estimate.estimator.lastName}" styleClass="reportValue"  />
+            </tr:panelLabelAndMessage>
+            <tr:panelLabelAndMessage label="Organization">
+                <tr:outputText simple="true" value="#{solutionAction.currentSolution.estimate.division.organization.name}" styleClass="reportValue"  />
+            </tr:panelLabelAndMessage>
+            <tr:panelLabelAndMessage label="Division">
+                <tr:outputText simple="true" value="#{solutionAction.currentSolution.estimate.division.name}" styleClass="reportValue"  />
+            </tr:panelLabelAndMessage>
+            <tr:panelLabelAndMessage label="Country">
+                <tr:outputText simple="true" value="#{solutionAction.currentSolution.estimate.projectEnvironment.country.name}" styleClass="reportValue"  />
+            </tr:panelLabelAndMessage>
+            <tr:panelLabelAndMessage label="Application Type">
+                <tr:outputText simple="true" value="#{solutionAction.currentSolution.estimate.projectEnvironment.applicationType.name}" styleClass="reportValue"  />
+            </tr:panelLabelAndMessage>
+            <tr:panelLabelAndMessage label="Application Type Group">
+                <tr:outputText simple="true" value="#{solutionAction.currentSolution.estimate.projectEnvironment.applicationType.group.name}" styleClass="reportValue"  />
+            </tr:panelLabelAndMessage>
+            <tr:panelLabelAndMessage label="Industry Sector">
+                <tr:outputText simple="true" value="#{solutionAction.currentSolution.estimate.projectEnvironment.industrySector.name}" styleClass="reportValue"  />
+            </tr:panelLabelAndMessage>
+            <tr:panelLabelAndMessage label="Industry Sector Group">
+                <tr:outputText simple="true" value="#{solutionAction.currentSolution.estimate.projectEnvironment.industrySector.group.name}" styleClass="reportValue"  />
+            </tr:panelLabelAndMessage>
+            <tr:panelLabelAndMessage label="Monetary Unit">
+                <tr:outputText simple="true" value="#{solutionAction.currentSolution.estimate.projectEnvironment.monetaryUnit.name}" styleClass="reportValue"  />
+            </tr:panelLabelAndMessage>
+            <tr:panelLabelAndMessage label="Effort Unit">
+                <tr:outputText simple="true" value="#{solutionAction.currentSolution.estimate.projectEnvironment.effortUnit.name}" styleClass="reportValue"  />
+            </tr:panelLabelAndMessage>
+            <tr:panelLabelAndMessage label="MTTD Time Unit">
+                <tr:outputText simple="true" value="#{solutionAction.currentSolution.estimate.projectEnvironment.mttdTimeUnit.name}" styleClass="reportValue"  />
+            </tr:panelLabelAndMessage>
+            <tr:panelLabelAndMessage label="Days per week">
+                <tr:outputText simple="true" value="#{solutionAction.currentSolution.estimate.projectEnvironment.daysPerWeek}" styleClass="reportValue"  />
+            </tr:panelLabelAndMessage>
+            <tr:panelLabelAndMessage label="Hours per day">
+                <tr:outputText simple="true" value="#{solutionAction.currentSolution.estimate.projectEnvironment.hoursPerDay}" styleClass="reportValue"  />
+            </tr:panelLabelAndMessage>
+        </tr:panelFormLayout>
+    </tr:showDetailHeader>
+    
+    <tr:separator/>
+            
+    <tr:showDetailHeader id="values" text="Estimation Values" disclosed="true" styleClass="reportHeader">
+        <tr:panelFormLayout styleClass="reportContent" labelWidth="15%">
+            <tr:panelLabelAndMessage label="UCP">
+                <tr:outputText simple="true" value="#{reportAction.currentReport.ucp}" styleClass="reportValue"  />
+            </tr:panelLabelAndMessage>
+            <tr:panelLabelAndMessage label="Gearing Factor">
+                <tr:outputText simple="true" value="#{solutionAction.currentSolution.gearingFactor}" styleClass="reportValue"  />
+            </tr:panelLabelAndMessage>
+            <tr:panelLabelAndMessage rendered="#{solutionAction.currentSolution.pp != null}" label="PP">
+                <tr:outputText simple="true" value="#{solutionAction.currentSolution.pp}" styleClass="reportValue"  />
+            </tr:panelLabelAndMessage>
+            <tr:panelLabelAndMessage rendered="#{solutionAction.currentSolution.pp == null}" label="PI">
+                <tr:outputText simple="true" value="#{solutionAction.currentSolution.pi}" styleClass="reportValue"  />
+            </tr:panelLabelAndMessage>
+            <tr:panelLabelAndMessage label="SLOC">
+                <h:outputText value="#{reportAction.currentReport.sloc}" styleClass="reportValue" >
+                    <f:convertNumber maxFractionDigits="2"/>
+                </h:outputText>
+            </tr:panelLabelAndMessage>                        
+        </tr:panelFormLayout>
+    </tr:showDetailHeader>
+</ui:composition>
+</html>

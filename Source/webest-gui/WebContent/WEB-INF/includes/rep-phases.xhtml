@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:tr="http://myfaces.apache.org/trinidad"
+    xmlns:trh="http://myfaces.apache.org/trinidad/html"
+    xmlns:webest="http://webest.ibm.com/">
+
+<ui:composition>
+    <tr:panelFormLayout rows="1" labelWidth="20%" maxColumns="5" styleClass="reportContentPhases">
+        <tr:panelLabelAndMessage partialTriggers="effortUnit" label="Average Staff:" styleClass="reportLabel">
+            <h:outputText value="#{reportAction.currentReport.averageStaff}" styleClass="reportValue">
+                <webest:unitConverter sourceUnitInstance="#{reportAction.referenceEffortUnit}" targetUnit="reportAction.effortUnit" />
+            </h:outputText>
+            <acronym class="reportUnit" title="#{reportAction.effortUnit.name}">#{reportAction.effortUnit.id}</acronym>
+        </tr:panelLabelAndMessage>
+        <tr:spacer/>
+        <tr:panelLabelAndMessage label="Effort Unit:" styleClass="reportLabel">
+            <tr:selectOneChoice id="effortUnit" autoSubmit="true" simple="true" value="#{reportAction.effortUnit}">
+                <f:selectItems value="#{projectDescriptionAction.effortUnits}" />
+            </tr:selectOneChoice>
+        </tr:panelLabelAndMessage>
+    </tr:panelFormLayout>
+    <tr:panelGroupLayout partialTriggers="effortUnit">
+    <ui:repeat value="#{reportAction.phases}" var="phase">
+        <tr:separator/>
+        
+        <tr:panelHeader text="#{phase.name}" styleClass="reportHeader">
+            <tr:panelFormLayout rows="1" labelWidth="20%" maxColumns="5"  styleClass="reportContentPhases">
+                
+                <tr:panelLabelAndMessage label="Percentage:" styleClass="reportLabel">
+                    <h:outputText value="#{phase.class.simpleName eq 'ProjectLife' ? 100 : phase.phase.percentage}" styleClass="reportValue">
+                        <f:convertNumber maxFractionDigits="2"/>
+                    </h:outputText>
+                    <span class="reportUnit">%</span>
+                </tr:panelLabelAndMessage>
+                
+                <tr:panelLabelAndMessage label="Duration:" styleClass="reportLabel">
+                    <h:outputText value="#{phase.duration}" styleClass="reportValue">
+                        <f:convertNumber maxFractionDigits="2"/>
+                    </h:outputText>
+                    <acronym class="reportUnit" title="Months">M</acronym>
+                </tr:panelLabelAndMessage>
+
+                <tr:panelLabelAndMessage label="Effort:" styleClass="reportLabel">
+                    <h:outputText value="#{phase.effort}" styleClass="reportValue">
+                        <webest:unitConverter sourceUnitInstance="#{reportAction.referenceEffortUnit}" targetUnit="reportAction.effortUnit" />
+                    </h:outputText>
+                    <acronym class="reportUnit" title="#{reportAction.effortUnit.name}">#{reportAction.effortUnit.id}</acronym>
+                </tr:panelLabelAndMessage>
+
+                <tr:panelLabelAndMessage label="Start Date:" styleClass="reportLabel">
+                    <tr:outputText value="#{phase.startDate}" simple="true" styleClass="reportValue" />
+                </tr:panelLabelAndMessage>
+
+                <tr:panelLabelAndMessage label="End Date:" styleClass="reportLabel">
+                    <tr:outputText value="#{phase.endDate}" simple="true" styleClass="reportValue" />
+                </tr:panelLabelAndMessage>
+            </tr:panelFormLayout>
+        </tr:panelHeader>
+        
+    </ui:repeat>
+    </tr:panelGroupLayout>
+</ui:composition>
+
+</html>

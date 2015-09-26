@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:tr="http://myfaces.apache.org/trinidad"
+    xmlns:trh="http://myfaces.apache.org/trinidad/html">
+
+
+<f:view>
+    <ui:composition template="/WEB-INF/templates/template.xhtml">
+
+        <ui:define name="main">
+            <tr:form id="solform">
+                <div id="mainview"><tr:panelBox text="Solution"
+                    styleClass="hundredPercent">
+                    <!-- OPTIONS BAR ON TOP OF CENTER SCREEN -->
+                    <div id="mainviewcontent"><tr:panelBorderLayout>
+                        <f:facet name="left">
+                            <tr:panelButtonBar captionText="Options">
+                                <tr:commandButton rendered="#{authAction.estimateEditable}"
+                                    text="Save" action="#{solutionAction.saveSolution}" />
+                                <tr:commandButton rendered="#{authAction.estimateEditable}"
+                                    disabled="#{solutionAction.currentSolution.id &lt; 1}"
+                                    text="Clone" action="#{solutionAction.cloneSolution}" />
+                                <tr:commandButton rendered="#{authAction.estimateEditable}"
+                                    immediate="true" text="Delete"
+                                    actionListener="#{solutionAction.changeDeletePopupVisible}"
+                                    id="showDeleteSolution" partialSubmit="true" />
+                                <tr:commandButton text="Generate Report" disabled="#{solutionAction.currentSolution.id &lt; 1}"
+                                    action="#{reportAction.generateReport}" />
+                            </tr:panelButtonBar>
+
+                        </f:facet>
+                        <f:facet name="right">
+                            <tr:statusIndicator styleClass="statusIndicator" />
+                        </f:facet>
+                    </tr:panelBorderLayout> <!-- TABS BELOW OPTIONS BAR  --> <tr:panelTabbed position="above">
+
+                        <tr:showDetailItem text="Solution Assumptions">
+                            <ui:include
+                                src="/WEB-INF/includes/sol-solutionassumptions-solutionassumptions.xhtml" />
+                        </tr:showDetailItem>
+
+                        <tr:showDetailItem text="Use Case Granularity">
+                            <ui:include src="/WEB-INF/includes/sol-granularity.xhtml" />
+                        </tr:showDetailItem>
+
+                        <tr:showDetailItem text="Sizing">
+                            <ui:include src="/WEB-INF/includes/sol-sizing.xhtml" />
+                        </tr:showDetailItem>
+
+                    </tr:panelTabbed></div>
+
+                    <div id="mainviewcomments"><tr:panelBox text="Comments"
+                        styleClass="hundredPercent">
+                        <tr:commandButton id="addCmtSig"
+                            rendered="#{authAction.estimateEditable}"
+                            actionListener="#{solutionAction.addCommentSignature}"
+                            partialSubmit="true" text="Add Signature" />
+                        <tr:inputText id="Comment" partialTriggers="addCmtSig"
+                            readOnly="#{!authAction.estimateEditable}" rows="5" columns="100"
+                            value="#{solutionAction.currentSolution.comment}" />
+                    </tr:panelBox></div>
+                    <tr:panelFormLayout rendered="#{solutionAction.currentSolution.id &gt; 0}">
+                        <tr:panelLabelAndMessage styleClass="smalltext" label="Created:">
+                            <h:outputText styleClass="smalltext"
+                                value="#{solutionAction.currentSolution.creationDate}">
+                                <f:convertDateTime type="both" timeStyle="short" />
+                                </h:outputText>
+                        </tr:panelLabelAndMessage>
+                        <tr:panelLabelAndMessage styleClass="smalltext" label="Modified:">
+                            <h:outputText styleClass="smalltext"
+                                value="#{solutionAction.currentSolution.modifyDate}"><f:convertDateTime type="both" timeStyle="short" /></h:outputText><tr:spacer width="5"/><h:outputText styleClass="smalltext" value="by #{solutionAction.currentSolution.lastEditor.lastName}, #{solutionAction.currentSolution.lastEditor.firstName}" />
+                        </tr:panelLabelAndMessage>
+                    </tr:panelFormLayout>
+                </tr:panelBox></div>
+
+
+                <!-- POPUPS -->
+                <tr:panelGroupLayout rendered="#{authAction.estimateEditable}"
+                    partialTriggers="showDeleteSolution okHideDeleteSolution cancelHideDeleteSolution">
+                    <tr:panelGroupLayout
+                        rendered="#{solutionAction.deletePopupVisible}">
+                        <div class="backgrounder"></div>
+                        <div class="wrapper sol_deletePopup_wrapper">
+                        <div class="container sol_deletePopup_container"><tr:outputText
+                            value="Do you really want to delete this solution?" /> <tr:spacer
+                            height="10" /> <tr:panelHorizontalLayout
+                            inlineStyle="width:100%">
+                            <tr:commandButton immediate="true" text="OK"
+                                actionListener="#{solutionAction.changeDeletePopupVisible}"
+                                id="okHideDeleteSolution"
+                                action="#{solutionAction.deleteSolution}"
+                                inlineStyle="margin:auto;" />
+                            <tr:commandButton immediate="true" text="Cancel"
+                                actionListener="#{solutionAction.changeDeletePopupVisible}"
+                                id="cancelHideDeleteSolution" partialSubmit="true"
+                                inlineStyle="margin:auto;" />
+                        </tr:panelHorizontalLayout></div>
+                        </div>
+                    </tr:panelGroupLayout>
+                </tr:panelGroupLayout>
+
+            </tr:form>
+        </ui:define>
+
+    </ui:composition>
+</f:view>
+</html>

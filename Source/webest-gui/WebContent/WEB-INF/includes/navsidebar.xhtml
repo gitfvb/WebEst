@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:tr="http://myfaces.apache.org/trinidad"
+    xmlns:trh="http://myfaces.apache.org/trinidad/html">
+<ui:composition>
+
+    <tr:form>
+
+<div id="navBox">
+        <tr:panelBox text="Estimates">
+        <div id="navText">
+            <tr:commandLink immediate="true"
+                                  text="New Estimate"
+                                  actionListener="#{estimateAction.changeNewEstimatePopupVisibility}"
+                                  id="showNewEstimate"
+                                  partialSubmit="true"
+                                  rendered="#{authAction.estimateEditable}"/>
+            <tr:spacer height="2" rendered="#{authAction.estimateEditable}"/>
+            <tr:tree selectedRowKeys="#{estimationAction.selectedRowKeys}" focusRowKey="#{estimateAction.selectedRowKey}" varStatus="status" var="node" value="#{estimateAction.estimatesTree}">
+                <f:facet name="nodeStamp">
+                
+                    <tr:commandLink actionListener="#{estimateAction.navigationNodeSelected}" text="#{node.name}" action="#{estimateAction.gotoSelectedNode}" shortDesc="#{node.name}" styleClass="nowrap">
+                        <f:param name="node" value="#{node}" id="node"/>
+                        <f:param name="rowKey" value="#{status.rowKey}" id="rowKey" />
+                    </tr:commandLink>
+                    
+                </f:facet>
+            </tr:tree>
+            </div>
+        </tr:panelBox>
+        </div>
+        
+        
+        
+        <!-- POPUPS -->
+        <tr:panelGroupLayout rendered="#{authAction.estimateEditable}" partialTriggers="showNewEstimate hideNewEstimate">
+            <tr:panelGroupLayout rendered="#{estimateAction.newEstimatePopupVisible}">
+                <div class="backgrounder"></div>
+                <div class="wrapper est_newestimate_wrapper">
+                    <div class="container est_newestimate_container">
+                        <ui:include src="est-choose.xhtml"/>
+                        <tr:spacer height="10"/>
+                        <tr:panelGroupLayout layout="horizontal" inlineStyle="width:100%">
+                            <tr:commandButton text="OK"
+                                action="#{estimateAction.createEstimate}"
+                                inlineStyle="margin:auto;"/>
+                            <tr:commandButton id="hideNewEstimate"
+                                partialSubmit="true"
+                                text="Cancel"
+                                actionListener="#{estimateAction.changeNewEstimatePopupVisibility}"
+                                inlineStyle="margin:auto;"/>
+                        </tr:panelGroupLayout>
+                    </div>
+                </div>
+            </tr:panelGroupLayout>
+        </tr:panelGroupLayout>
+        
+        
+        
+    </tr:form>
+
+</ui:composition>
+</html>

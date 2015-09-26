@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:tr="http://myfaces.apache.org/trinidad"
+    xmlns:trh="http://myfaces.apache.org/trinidad/html">
+
+
+<ui:composition>
+
+    <tr:panelFormLayout>
+        
+        <h:panelGrid columns="2" id="innerTableTop">
+        
+            <tr:panelCaptionGroup captionText="Global Parameters">
+                <tr:panelFormLayout>
+                    <tr:panelLabelAndMessage label="Solution Name">
+                        <tr:inputText id="Name" simple="true"
+                            value="#{solutionAction.currentSolution.name}" required="true"
+                            readOnly="#{!authAction.estimateEditable}" />
+                    </tr:panelLabelAndMessage>
+                    <tr:panelLabelAndMessage label="Gearing Factor">
+                        <tr:inputText id="GearingFactor" simple="true"
+                            value="#{solutionAction.currentSolution.gearingFactor}" required="true"
+                            readOnly="#{!authAction.estimateEditable}" />
+                    </tr:panelLabelAndMessage>
+                </tr:panelFormLayout>
+            </tr:panelCaptionGroup>
+            
+            <tr:panelCaptionGroup captionText="Putnam" styleClass="sizingTable">
+                <h:panelGrid border="0" columns="2" styleClass="sizingTable">
+    
+                    <tr:selectBooleanRadio group="pi_pp"
+                        value="#{piHistoryAction.piSelected}"
+                        readOnly="#{!authAction.estimateEditable}"
+                        id="radiobox_pi"
+                        autoSubmit="true"
+                        partialTriggers="ApplyPiHistory"
+                        text="Expected PI"/>
+                    <tr:inputText simple="true"
+                        value="#{piHistoryAction.piBox}"
+                        readOnly="#{!authAction.estimateEditable}"
+                        columns="5"
+                        id="PI"
+                        disabled="#{!piHistoryAction.piSelected}"
+                        binding="#{piHistoryAction.piInputBox}"/>
+    
+                    <tr:selectBooleanRadio group="pi_pp"
+                        value="#{piHistoryAction.ppSelected}"
+                        readOnly="#{!authAction.estimateEditable}"
+                        id="radiobox_pp"
+                        autoSubmit="true"
+                        partialTriggers="ApplyPiHistory"
+                        text="Expected PP"/>
+                    <tr:inputText value="#{piHistoryAction.ppBox}"
+                        readOnly="#{!authAction.estimateEditable}"
+                        columns="5"        
+                        id="PP"                    
+                        disabled="#{piHistoryAction.piSelected}"
+                        binding="#{piHistoryAction.ppInputBox}"/>
+    
+                </h:panelGrid>
+    
+                <tr:commandButton text="Show Pi-History"
+                    actionListener="#{piHistoryAction.changePiHistoryPopupVisibility}"
+                    id="ShowPiHistory" partialSubmit="true" 
+                    rendered="#{authAction.estimateEditable}"/>
+            </tr:panelCaptionGroup>
+        
+        </h:panelGrid>
+        
+    
+
+    
+        <tr:panelCaptionGroup captionText="Phases">
+            
+            <tr:panelLabelAndMessage label="Project Start Date">
+                <tr:inputDate id="ProjectStartDate" simple="true" required="true"
+                    value="#{solutionAction.currentSolution.projectStartDate}"
+                    readOnly="#{!authAction.estimateEditable}" chooseId="dateChooser">
+                    <f:convertDateTime dateStyle="short" />
+                </tr:inputDate>
+                <tr:panelPopup rendered="#{authAction.estimateEditable}" id="dateChooserPopup" icon="images/icons/calendar.png">
+                    <h:panelGrid>
+                        <tr:chooseDate id="dateChooser" />
+                        <h:outputLink title="Close" value="javascript:TrPanelPopup._VISIBLE_POPUPS['dateChooserPopup_popupContainer'].hidePopup({taget: null});">Close</h:outputLink>
+                    </h:panelGrid>
+                </tr:panelPopup>
+            </tr:panelLabelAndMessage>
+        
+            <tr:table var="row"
+                value="#{solutionAction.currentSolution.solutionStaffingShapes}">
+
+                <tr:column>
+                    <tr:selectBooleanCheckbox value="#{row.selected}"
+                        readOnly="#{!authAction.estimateEditable}" />
+                </tr:column>
+
+                <tr:column>
+                    <tr:outputText value="#{row.phase.acronym}" />
+                </tr:column>
+
+                <tr:column>
+                    <tr:selectOneChoice value="#{row.staffingShape}"
+                        readOnly="#{!authAction.estimateEditable}">
+                        <f:selectItems value="#{projectDescriptionAction.staffingShapes}" />
+                    </tr:selectOneChoice>
+                </tr:column>
+
+            </tr:table>
+    
+        </tr:panelCaptionGroup>
+    
+        
+    
+
+        <tr:panelCaptionGroup captionText="Optional Constraints">
+            <tr:panelLabelAndMessage label="Project Duration in Months">
+    			
+    			<tr:panelHorizontalLayout>
+	                <tr:selectBooleanCheckbox value="#{solutionAction.editConstraint}"
+	                    id="changeEditConstraint" autoSubmit="true" immediate="true"
+	                    readOnly="#{!authAction.estimateEditable}" />
+	                <tr:inputText id="ConstraintTarget" disabled="#{!solutionAction.editConstraint}"
+	                    value="#{solutionAction.constraint.target}"
+	                    partialTriggers="changeEditConstraint"
+	                    readOnly="#{!authAction.estimateEditable}" />
+    			</tr:panelHorizontalLayout>
+    			
+            </tr:panelLabelAndMessage>
+        </tr:panelCaptionGroup>
+
+    </tr:panelFormLayout>
+
+    <!-- POPUPS -->
+    <tr:panelGroupLayout rendered="#{authAction.estimateEditable}"
+        partialTriggers="ShowPiHistory HidePiHistory ApplyPiHistory">
+        <tr:panelGroupLayout
+            rendered="#{piHistoryAction.piHistoryPopupVisible}">
+            <div class="backgrounder"></div>
+            <div class="wrapper sol_pihistory_wrapper">
+            <div class="container sol_pihistory_container"><ui:include
+                src="/WEB-INF/includes/sol-solutionassumptions-pihistory.xhtml" />
+            <h:panelGrid columns="2">
+                <tr:commandButton text="Apply PP"
+                    actionListener="#{piHistoryAction.applyPiHistoryValue}"
+                    id="ApplyPiHistory" partialSubmit="true"
+                    rendered="#{authAction.estimateEditable}" />
+                <tr:commandButton text="Close"
+                    actionListener="#{piHistoryAction.changePiHistoryPopupVisibility}"
+                    id="HidePiHistory" partialSubmit="true" />
+            </h:panelGrid></div>
+            </div>
+        </tr:panelGroupLayout>
+    </tr:panelGroupLayout>
+
+</ui:composition>
+</html>
